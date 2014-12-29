@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="de.itomig.itoplib"
+    android:installLocation="auto"
+    android:versionCode="34"
+    android:versionName="2.01" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="11" />
+
+    <application
+        android:name="de.itomig.itopmobile.ItopApplication"
+        android:debuggable="true"
+        android:icon="@drawable/logo_itop_only_72"
+        android:label="@string/app_name" >
+        <activity
+            android:name="de.itomig.itopmobile.ItopMobileActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.IncidentActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.InternalTaskActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.TicketDetailActivity"
+            android:label="@string/app_name_ticket_details" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.TaskDetailActivity"
+            android:label="@string/app_name_task_details" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.AddTaskActivity"
+            android:label="@string/app_name_add" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.HelpdeskActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.MyActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.AboutActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.Preferences"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.preferences" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="de.itomig.itoplib.SearchActivity"
+            android:label="@string/app_name_search" >
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name="de.itomig.itoplib.BackgroundCheck"
+            android:process=":itop_background"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="de.itomig.itoplib.BackgroundCheck" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="de.itomig.itoplib.BootReceiver"
+            android:process=":itop_background" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="de.itomig.itoplib.AlarmReceiver"
+            android:process=":itop_background" >
+        </receiver>
+    </application>
+
+</manifest>

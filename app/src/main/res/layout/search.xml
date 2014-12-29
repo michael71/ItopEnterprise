@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:weightSum="1">
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal">
+	
+		<EditText android:layout_width="0px" android:layout_weight="75"
+			android:layout_height="wrap_content" android:singleLine="true"
+			android:inputType="textNoSuggestions" android:id="@+id/search_string"
+			android:text="" />
+
+		<Button android:id="@+id/go" android:layout_width="0px"
+			android:layout_weight="25" android:text="@string/go"
+			android:textSize="18sp" android:layout_height="wrap_content" />
+
+	</LinearLayout>
+
+	<Spinner android:id="@+id/sel_category" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:drawSelectorOnTop="true"
+		android:prompt="@string/sel_category" />
+	<WebView android:id="@+id/search_result" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:text="..."
+		android:paddingTop="12sp" android:textSize="14sp" android:autoLink="all" />
+
+</LinearLayout>
+

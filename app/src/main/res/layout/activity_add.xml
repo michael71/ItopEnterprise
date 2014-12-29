@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+	android:layout_height="match_parent" android:orientation="vertical"
+	android:paddingBottom="@dimen/activity_vertical_margin"
+	android:paddingLeft="@dimen/activity_horizontal_margin"
+	android:paddingRight="@dimen/activity_horizontal_margin"
+	android:paddingTop="@dimen/activity_vertical_margin" tools:context=".AddTaskActivity">
+	<LinearLayout android:id="@+id/LinearLayout02"
+		android:layout_width="fill_parent" android:paddingLeft="0sp"
+		android:paddingRight="0sp" android:layout_height="wrap_content"
+		android:orientation="horizontal" android:paddingTop="0sp"
+		android:gravity="center">
+		<Button android:id="@+id/btnCancel" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="cancel"
+			android:layout_weight="1" />
+		<Button android:id="@+id/btnSave" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="add"
+			android:layout_weight="1" />
+	</LinearLayout>
+	<TableLayout android:layout_width="fill_parent"
+		android:padding="4sp" android:layout_height="fill_parent"
+		android:stretchColumns="1" android:orientation="vertical"
+		android:background="#EEE">
+		<TableRow android:padding="4sp" android:background="#DDD">
+			<TextView android:id="@+id/titleText" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#000"
+				android:text=" Title " android:textSize="20sp" android:textStyle="bold"
+				android:layout_weight="1" />
+			<EditText android:id="@+id/titleInput" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_weight="3"
+				android:hint="(title)" android:textColor="#000" android:textSize="20sp"
+				android:textStyle="bold" android:background="#FFF" />
+		</TableRow>
+		<TableRow android:padding="4sp" android:background="#EEE">
+			<TextView android:id="@+id/personText" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#000"
+				android:text=" resp. " android:textSize="14sp" 
+				android:layout_weight="1" android:gravity="right" />
+			<Spinner android:id="@+id/spPerson" android:layout_width="match_parent"
+				android:layout_height="wrap_content" android:layout_weight="3"
+				android:background="#EEE" android:textColor="#000" />
+		</TableRow>
+		<TableRow android:padding="4sp" android:background="#EEE">
+			<TextView android:id="@+id/org" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#000"
+				android:text=" Cust. " android:textSize="14sp" 
+				android:layout_weight="1" android:gravity="right" />
+			<Spinner android:id="@+id/spOrg" android:layout_width="match_parent"
+				android:layout_height="wrap_content" android:layout_weight="3"
+				android:textColor="#000" />
+		</TableRow>
+		<TableRow android:padding="4sp" android:background="#EEE">
+			<TextView android:id="@+id/priorityText"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:textColor="#000" android:textSize="14sp" 
+				android:text=" Prio " android:layout_weight="1" android:gravity="right"  />
+			<Spinner android:id="@+id/spPriority" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_weight="3"
+				android:textColor="#000" />
+		</TableRow>
+		<TableRow android:padding="4sp" android:background="#EEE">
+			<TextView android:id="@+id/statusText" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#000"
+				android:textSize="14sp"  android:text=" Status "
+				android:layout_weight="1" android:gravity="right"  />
+			<Spinner android:id="@+id/spStatus" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:textColor="#000"
+				android:layout_weight="3" />
+		</TableRow>
+		<TableRow android:padding="4sp" android:background="#DDD">
+			<TextView android:id="@+id/descText" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:layout_weight="1"
+				android:text=" Desc. " android:gravity="right"
+				android:textColor="#000" android:textSize="14sp" />
+			<EditText android:id="@+id/descInput" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:layout_weight="3"
+				android:background="#FFF" android:hint="(description)" android:inputType="text"
+				android:textColor="#000" android:textSize="14sp" />
+		</TableRow>
+		<TableRow android:padding="4sp" android:background="#DDD">
+			<TextView android:id="@+id/remarkText" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:layout_weight="1"
+				android:maxLines="3" android:gravity="right" android:text=" Remark "
+				android:textColor="#000" android:textSize="14sp" />
+			<EditText android:id="@+id/remarkInput"
+				android:layout_width="wrap_content" android:layout_height="100sp"
+				android:layout_weight="3" android:background="#FFF" android:hint="(remark)"
+				android:inputType="textMultiLine" 
+				android:textColor="#000" android:textSize="14sp" />
+		</TableRow>
+	</TableLayout>
+</LinearLayout>

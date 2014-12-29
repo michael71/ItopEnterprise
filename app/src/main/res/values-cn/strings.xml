@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iTop ITSM &amp; CMDB</string>
+    <string name="app_name_search">iTop - 搜索 CMDB</string>
+    <string name="app_name_ticket_details">"iTop ITSM &amp; CMDB - 工单详细"</string>
+    <string name="app_name_task_details">"iTop ITSM &amp; CMDB - 任务详细"</string>
+    <string name="app_name_add">创建新的任务</string>
+    <string name="server_url">服务器 URL</string>
+    <string name="server">服务器</string>
+    <string name="user">用户信息</string>
+    <string name="login">用户名</string>
+    <string name="password">密码</string>
+    <string name="enable_ssl">启用 SSL</string>
+    <string name="ssl_enabled">SSL 已经启用.</string>
+    <string name="ssl_disabled">SSL 已经禁用.</string>
+    <string name="user_login">输入用户名</string>
+    <string name="user_password">输入密码</string>
+    <string name="cancel">取消</string>
+    <string name="settings">配置</string>
+    <string name="about">关于</string>
+    <string name="quit">终止</string>
+    <string name="are_you_sure_you_want_to_quit">终止操作数据将不被保存，你确定终止操作?</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="refresh">刷新</string>
+    <string name="other">其他</string>
+    <string name="refresh_rate">刷新频率</string>
+    <string name="search">搜索</string>
+    <string name="tickets">工单</string>
+    <string name="go">开始 !</string>
+    <string name="sel_category">选择搜索类别</string>
+    <string name="list_is_empty">列表为空.</string>
+    <string name="no_tickets">无工单.</string>
+    <string name="no_tasks">无任务.</string>
+    <string name="loading">加载中.</string>
+    <string name="notification">通知</string>
+    <string name="notify_when">满足条件时通知</string>
+    <string name="no_queries">没有已定义的查询</string>
+    <string name="more_or_equal">大于等于</string>
+    <string name="less_than">小于等于</string>
+    <string name="entries">结果.</string>
+    <string name="notify_if">满足条件时通知</string>
+    <string name="save">保存</string>
+    <string name="config_notifications">配置通知:</string>
+    <string name="sel_query_num">选择查询语句</string>
+    <string name="stored_queries">存储的查询</string>
+    <string name="configure_sdm">配置SDM</string>
+    <string name="query_notification">SDM通知</string>
+    <string name="new_prio1_incident">新建最高优先级事件</string>
+    <string name="itop_prio1_incident">iTop最高优先级事件</string>
+    <string name="_info_notification">通知</string>
+    <string name="itop_sdm_notification">iTop SDM通知</string>
+    <string name="enable_itil_tickets">工单配置: 遵循ITIL标准的工单?</string>
+    <string name="itil_tickets_disabled">不, 基本工单管理.</string>
+    <string name="itil_tickets_enabled">是, ITIL标准工单.</string>
+    <string name="enable_tasks">工单配置: 任务管理?</string>
+    <string name="tasks_disabled">不,隐藏所有任务.</string>
+    <string name="tasks_enabled">是,显示所有任务.</string>
+    <string name="add_task">创建新的任务.</string>
+    <string name="copyright">Copyright 2011,2012,2013 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
+    <string name="whatisitopandroid">该iTop安卓客户端可以查询配置项、人员等信息。 同时会显示服务管理和事件管理中相关工单的内容、状态等详细信息。</string>
+    <string name="whatisitop">iTop是一个基于Web的、开源的、遵循ITIL标准的IT服务管理工具。它支持事件管理、问题管理、自助服务、配置管理、变更管理等常用流程。获取更多信息请访问www.itomig.de/itop和www.combodo.com.</string>
+    <string name="about_app_title">ITSM &amp; CMDB安卓客户端应用</string>
+    <string name="itopstat">iTop被下载超过75000次.</string>
+
+</resources>

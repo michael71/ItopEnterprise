@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/LinearLayout01"
+	android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+	android:paddingLeft="2sp" android:paddingRight="2sp"
+	android:layout_height="wrap_content" android:orientation="horizontal"
+	android:paddingTop="5sp" android:background="#ffffff">
+
+	<TextView android:id="@+id/tv_ticket" android:layout_height="wrap_content"
+		android:layout_width="0px" android:layout_weight="85"
+		android:typeface="sans" android:textSize="16sp" android:textColor="#002200" />
+	<LinearLayout android:id="@+id/LinearLayout01"
+		android:layout_width="0px" android:layout_weight="15"
+		android:paddingLeft="0sp" android:paddingRight="0sp"
+		android:layout_height="wrap_content" android:orientation="vertical"
+		android:paddingTop="0sp" android:gravity="right">
+		<ImageView android:id="@+id/imagev" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
+		<ImageView android:id="@+id/imagev2" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+
+</LinearLayout>

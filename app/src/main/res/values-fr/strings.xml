@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">iTop ITSM &amp; CMDB</string>
+    <string name="app_name_search">iTop - Search CMDB</string>
+    <string name="app_name_ticket_details">"iTop ITSM &amp; CMDB - Détail des tickets"</string>
+    <string name="app_name_task_details">"iTop ITSM &amp; CMDB - Détail des taches"</string>
+    <string name="app_name_add">créer une nouvelle tache</string>
+    <string name="server_url">URL du serveur</string>
+    <string name="server">Serveur</string>
+    <string name="user">Utilisateur</string>
+    <string name="login">Login</string>
+    <string name="password">Mot de passe</string>
+    <string name="enable_ssl">Activer SSL</string>
+    <string name="ssl_enabled">SSL est activé.</string>
+    <string name="ssl_disabled">SSL est désactivé.</string>
+    <string name="user_login">Saisir le login</string>
+    <string name="user_password">Saisir le mot de passe</string>
+    <string name="cancel">Annuler</string>
+    <string name="settings">Paramètres</string>
+    <string name="about">A propos</string>
+    <string name="quit">Quitter</string>
+    <string name="are_you_sure_you_want_to_quit">ètes vous sur de vouloir quitter ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="refresh">Actualiser</string>
+    <string name="other">Autre</string>
+    <string name="refresh_rate">Taux de rafraichissement</string>
+    <string name="search">Recherche</string>
+    <string name="tickets">Tickets</string>
+    <string name="go">GO !</string>
+    <string name="sel_category">Choisir la catégorie de recherche</string>
+    <string name="list_is_empty">vide.</string>
+    <string name="no_tickets">Pas de tickets.</string>
+    <string name="no_tasks">Pas de tasks.</string>
+    <string name="loading">Chargement.</string>
+    <string name="notification">Notification</string>
+    <string name="notify_when">Notifier</string>
+    <string name="no_queries">pas de requête définie</string>
+    <string name="more_or_equal">N &gt;= </string>
+    <string name="less_than">ou N &lt;</string>
+    <string name="entries">Resultats.</string>
+    <string name="notify_if">Notifier if</string>
+    <string name="save">Enregistrer</string>
+    <string name="config_notifications">Configurer les notifications pour:</string>
+    <string name="sel_query_num">Choisir la reqête</string>
+    <string name="stored_queries">requêtes enregistrés</string>
+    <string name="configure_sdm">configurer SDM</string>
+    <string name="query_notification">Notification SDM</string>
+    <string name="new_prio1_incident">Nouvel Incident de Prio1</string>
+    <string name="itop_prio1_incident">iTop Incident de Prio1</string>
+    <string name="_info_notification">Notification</string>
+    <string name="itop_sdm_notification">iTop SDM Notification</string>
+    <string name="enable_itil_tickets">Datamodel: ITIL pour la gestion des Tickets?</string>
+    <string name="itil_tickets_disabled">Non, gestion des Tickets basique.</string>
+    <string name="itil_tickets_enabled">Oui, gestion ITIL des Tickets .</string>
+    <string name="enable_tasks">Datamodel: Gestion des taches?</string>
+    <string name="tasks_disabled">Non, ne pas afficher de taches.</string>
+    <string name="tasks_enabled">Oui, afficher les taches.</string>
+    <string name="add_task">créer une nouvelle tache.</string>
+    <string name="copyright">Copyright 2011,2012,2013 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
+    <string name="whatisitopandroid">Le client Android pour iTop peut rechercher des CI et des personnes dans la CMDB et afficher le statut en cours pour les tickets des demandes utilisateurs et des incidents</string>
+    <string name="whatisitop">iTop est un CMDB web et Open Source contenant des Modules pour chaque processus ITIL. Il comprends un module Ticketing, un portail Self-Service et plusieurs interfaces pour des outils tierce-partie. Plus d\'infos: www.itomig.de/itop et www.combodo.com .</string>
+    <string name="about_app_title">ITSM &amp; CMDB pour Android</string>
+    <string name="itopstat">iTop a été téléchargé plus de 75 000 fois.</string>
+
+</resources>

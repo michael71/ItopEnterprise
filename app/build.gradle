@@ -1,0 +1,23 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 9
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "de.itomig.itoplib"
+        minSdkVersion 8
+        targetSdkVersion 11
+    }
+
+    buildTypes {
+        release {
+
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.google.code.gson:gson:2.2.4'
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="search_category">
+		<item>配置项</item>
+		<item>联系人</item>
+	</string-array>
+	<string-array name="notification_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+	<string-array name="notification_entries">
+		<item>从不</item>
+		<item>仅新建最高优先级事件时</item>
+		<item>创建和更新最高优先级事件时</item>
+	</string-array>
+	<string-array name="priority">
+	    <item>1 - 严重</item>
+		<item>2 - 高</item>
+		<item>3 - 中</item>
+		<item>4 - 低</item>
+    </string-array>
+    <string-array name="status">
+		<item>新添加</item>
+		<item>可用</item>
+		<item>完成</item>
+		<item>禁用</item>
+		<item>已删除</item>
+    </string-array>
+</resources>

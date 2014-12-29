@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="search_category">
+		<item>CI Fonctionnel</item>
+		<item>Personne</item>
+	</string-array>
+	<string-array name="notification_values">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</string-array>
+	<string-array name="notification_entries">
+		<item>jamais</item>
+		<item>Pour les nouveaux incidents de Prio1</item>
+		<item>Pour les mises à jour et nouveaux incidents de Prio1</item>
+	</string-array>
+	<string-array name="priority">
+	    <item>critique</item>
+		<item>haute</item>
+		<item>moyenne</item>
+		<item>basse</item>
+    </string-array>
+    <string-array name="status">
+		<item>nouveau</item>
+		<item>actif</item>
+		<item>terminé</item> 
+		<item>inactif</item>
+		<item>supprimé</item>
+    </string-array>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">iTop ITSM &amp; CMDB</string>
+    <string name="app_name_search">iTop - in der CMDB suchen</string>
+    <string name="app_name_ticket_details">iTop ITSM &amp; CMDB - Ticket Details</string>
+    <string name="app_name_task_details">iTop ITSM &amp; CMDB - Aufgaben Details</string>
+    <string name="app_name_add">neue Aufgabe/Task erstellen</string>
+    <string name="server_url">Server URL</string>
+    <string name="server">Server</string>
+    <string name="user">User</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="enable_ssl">Enable SSL</string>
+    <string name="ssl_enabled">Verbindung per SSL</string>
+    <string name="ssl_disabled">Verbindung nicht per SSl</string>
+    <string name="user_login">User Login eingeben</string>
+    <string name="user_password">User Password eingeben</string>
+    <string name="cancel">Zurück</string>
+    <string name="settings">Einstellungen</string>
+    <string name="about">Über</string>
+    <string name="quit">Exit</string>
+    <string name="are_you_sure_you_want_to_quit">Sind Sie sicher, dass sie das Programm schliessen wollen?</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="refresh">Abfragezyklus</string>
+    <string name="other">andere</string>
+    <string name="refresh_rate">Abfragezyklus</string>
+    <string name="search">Suche</string>
+    <string name="tickets">Tickets</string>
+    <string name="go">GO !</string>
+    <string name="sel_category">Suchkategorie wählen</string>
+    <string name="list_is_empty">keine Tickets.</string>
+    <string name="no_tickets">keine Tickets.</string>
+    <string name="no_tasks">keine Tasks.</string>
+    <string name="loading">lade Daten.</string>
+    <string name="notification">Benachrichtigungen</string>
+    <string name="notify_when">Nachricht</string>
+    <string name="no_queries">keine Queries definiert.</string>
+    <string name="more_or_equal">N &gt;= </string>
+    <string name="less_than">oder N &lt;</string>
+    <string name="entries">Einträgen.</string>
+    <string name="notify_if">Benachrichtigung bei</string>
+    <string name="save">speichern</string>
+    <string name="config_notifications">Benachrichtigung konfigurieren für:</string>
+    <string name="sel_query_num">Abfrage Nummer auswählen</string>
+    <string name="stored_queries">Abfrage-Bibliothek</string>
+    <string name="configure_sdm">SDM konfigurieren</string>
+    <string name="query_notification">SDM Benachrichtigung</string>
+    <string name="new_prio1_incident">Neuer Prio1 Incident</string>
+    <string name="itop_prio1_incident">iTop Prio1 Incident</string>
+    <string name="_info_notification">Benachrichtigung</string>
+    <string name="itop_sdm_notification">iTop SDM Benachrichtigung</string>
+    <string name="enable_itil_tickets">Datenmodell - ITIL Ticket Mgmt?</string>
+    <string name="itil_tickets_disabled">Nein, Simples Ticket Mgmt.</string>
+    <string name="itil_tickets_enabled">Ja, ITIL Ticket Mgmt.</string>
+    <string name="enable_tasks">Datenmodell - Task Mgmt?</string>
+    <string name="tasks_disabled">Nein, keine Aufgaben anzeigen.</string>
+    <string name="tasks_enabled">Ja, Aufgaben anzeigen.</string>
+    <string name="add_task">neue Aufgabe/Task.</string>
+    <string name="copyright">Copyright 2011,2012,2013 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
+    <string name="whatisitopandroid">Der iTop-Android-Client erlaubt eine Suche in den CMDB-Informationen, in\nbeliebigen Abfragen des Datenbestands, und einen Zugriff auf alle\noffenen Helpdesk- und Incident-Tickets sowie auf alle offenen, Ihnen als\nBearbeiter zugewiesenen Tickets.</string>
+    <string name="whatisitop">iTop ist eine leistungsfähige, web-basierte Open Source CMDB mit\nITIL-konformen Prozessmodulen für die Unterstützung von ITSM-Prozessen\nvornehmlich aus dem Bereich Operations. Es beinhaltet ein\nTicketing-System, ein Self-Service-Portal sowie leistungsfähige\nSchnittstellen zu Drittsystemen für die Datensynchronisation. \nInformieren Sie sich unter www.itomig.de/itop .</string>
+    <string name="about_app_title">ITSM &amp; CMDB für Android</string>
+    <string name="itopstat">iTop wurde bereits mehr als 75 000 mal heruntergeladen.</string>
+
+</resources>
