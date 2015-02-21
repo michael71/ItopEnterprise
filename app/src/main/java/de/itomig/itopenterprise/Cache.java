@@ -48,7 +48,7 @@ import static de.itomig.itopenterprise.ItopConfig.personLookupTime;
 
 public class Cache {
 
-    public static final long MAX_CACHE_LIFETIME = 180 * 1000L; //TODO 24*3600*1000L;  // 24h
+    public static final long MAX_CACHE_LIFETIME =  24*3600*1000L;  // 24h
 
     public static void cachePersons(Context context) {
 
