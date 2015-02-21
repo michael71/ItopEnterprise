@@ -19,10 +19,7 @@ package de.itomig.itopenterprise;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
@@ -39,7 +36,6 @@ import de.itomig.itopenterprise.cmdb.ItopTicket;
 import de.itomig.itopenterprise.cmdb.Person;
 
 import static de.itomig.itopenterprise.ItopConfig.INVALID_ID;
-import static de.itomig.itopenterprise.ItopConfig.NOTIFICATION_ID_INCIDENT;
 import static de.itomig.itopenterprise.ItopConfig.TAG;
 import static de.itomig.itopenterprise.ItopConfig.debug;
 import static de.itomig.itopenterprise.ItopConfig.personLookup;
@@ -53,15 +49,6 @@ public class TicketDetailActivity extends Activity {
     private ItopTicket t;
     private String callerPhone;
     private String agentPhone;
-
-   /* private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            notificationManager.cancel(NOTIFICATION_ID_INCIDENT);
-            updateUI(intent);
-        }
-    }; */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,8 +80,6 @@ public class TicketDetailActivity extends Activity {
         callCaller = (ImageView) findViewById(R.id.callCallerImage);
         callAgent = (ImageView) findViewById(R.id.callAgentImage);
 
-      /*  String svcName = Context.NOTIFICATION_SERVICE;
-        notificationManager = (NotificationManager) getSystemService(svcName); */
 
         tvCaller.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -139,10 +124,6 @@ public class TicketDetailActivity extends Activity {
         super.onResume();
         if (debug)
             Log.i(TAG, "TicketTicketActivity - onResume");
-       /* registerReceiver(broadcastReceiver, new IntentFilter(
-                BackgroundCheck.NEW_INCIDENT_BROADCAST));
-        notificationManager.cancel(NOTIFICATION_ID_INCIDENT);
-        stopService(new Intent(BackgroundCheck.class.getName())); */
         display();
         dispCallerAndAgent(); // look up friendly names and phone numbers,
         // display them.
@@ -153,10 +134,6 @@ public class TicketDetailActivity extends Activity {
         super.onPause();
         if (debug)
             Log.i(TAG, "TicketTicketActivity - onPause");
-        /*
-        unregisterReceiver(broadcastReceiver);
-        startService(new Intent(BackgroundCheck.class.getName()));
-        */
     }
 
     @Override
@@ -166,11 +143,6 @@ public class TicketDetailActivity extends Activity {
             Toast.makeText(this, result, Toast.LENGTH_LONG);
         }
     }
-
-    /* private void updateUI(Intent intent) {
-        String incsText = intent.getStringExtra("incsText");
-        toast(" Neue Prio3 Incidents\n" + incsText);
-    } */
 
     private void display() {
         priorityIcon.setImageResource(t.prioImageResource());
@@ -267,7 +239,10 @@ public class TicketDetailActivity extends Activity {
         if (!hasTelephony) return;
 
         try {
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            // using DIAL instead of ACTION_CALL to avoid need of
+            // <uses-permission android:name="android.permission.CALL_PHONE" />
+            // to be have the app listed also for tablets
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
             callIntent.setData(Uri.parse("tel:" + num));
             startActivity(callIntent);
 
