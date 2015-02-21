@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:background="#DDD" android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#DDD"
+    android:orientation="vertical">
 
-	<ListView android:id="@+id/listview01" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" 
-		android:drawSelectorOnTop="false" />
+    <ListView
+        android:id="@+id/listview01"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="false" />
 
-	<TextView android:id="@+id/empty" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:text="@string/no_tickets"
-		android:textColor="#666"
-		 android:gravity="center_vertical|center_horizontal" />
-		
-		</LinearLayout>
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="@string/no_tickets"
+        android:textColor="#666" />
+
+</LinearLayout>
  

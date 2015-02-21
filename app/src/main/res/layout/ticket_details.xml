@@ -1,101 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/show_ticket" android:orientation="vertical"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:padding="5dp" android:background="#FFF">
-	<ScrollView android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
-		<LinearLayout android:id="@+id/LinearLayout02"
-			android:layout_width="fill_parent" android:layout_height="fill_parent"
-			android:orientation="vertical">
-			<LinearLayout android:id="@+id/LinearLayout01"
-				android:layout_width="fill_parent" android:paddingLeft="2sp"
-				android:paddingRight="2sp" android:layout_height="wrap_content"
-				android:orientation="horizontal" android:paddingTop="2sp"
-				android:gravity="left">
-				<ImageView android:id="@+id/image" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:padding="6sp" />
-				<ImageView android:id="@+id/image2" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:padding="2sp"
-					android:paddingLeft="20sp" />
-			</LinearLayout>
+    android:id="@+id/show_ticket"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/LinearLayout01"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:paddingLeft="2sp"
+                android:paddingRight="2sp"
+                android:paddingTop="2sp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="6sp" />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2sp"
+                    android:paddingLeft="20sp" />
+            </LinearLayout>
 
 
-					<TableLayout android:layout_width="fill_parent"
-				android:padding="5sp" android:layout_height="wrap_content"
-				android:stretchColumns="1"
-				android:orientation="vertical" 
-				android:background="#DDD" >
-				<TableRow>
-					<TextView android:id="@+id/refText" android:layout_width="fill_parent"
-						android:layout_height="wrap_content" android:textColor="#000"
-						android:text="ref number" android:textSize="12dp"
-						android:background="#DDD" android:padding="5sp" />
-<TextView android:id="@+id/callerText"
-						android:layout_width="fill_parent" android:layout_height="wrap_content"
-						android:textColor="#000" android:text="caller" android:textSize="12dp"
-						android:background="#DDD" android:padding="4sp" android:gravity="right" />
-<ImageView android:id="@+id/callCallerImage" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:padding="2sp"
-					android:layout_gravity="center" />
-				</TableRow>
-				<TableRow>
-				<TextView android:id="@+id/statusText"
-						android:layout_width="fill_parent" android:layout_height="wrap_content"
-						android:textColor="#000" android:padding="5sp" android:paddingTop="0sp"
-						android:textSize="16dp" android:background="#DDD" />
-					<TextView android:id="@+id/agentText"
-						android:layout_width="fill_parent" android:layout_height="wrap_content"
-						android:textColor="#000" android:text="agent" android:textSize="12dp"
-						android:background="#DDD" android:padding="4sp" android:gravity="right" />
-					<ImageView android:id="@+id/callAgentImage" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:padding="2sp" android:paddingTop="4sp"
-					android:layout_gravity="center"  />
-				</TableRow>
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDD"
+                android:orientation="vertical"
+                android:padding="5sp"
+                android:stretchColumns="1">
 
-			</TableLayout>	
-			<TextView android:id="@+id/titleText" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:textColor="#000"
-				android:paddingTop="5sp" android:text="Title" android:textSize="20dp"
-				android:background="#EEE"
-				android:textStyle="bold" />
-			<TableLayout android:layout_width="fill_parent"
-				android:padding="5sp" android:layout_height="wrap_content"
-				android:orientation="horizontal" android:gravity="left">
-				<TableRow>
-					<TextView android:layout_width="fill_parent"
-						android:layout_height="wrap_content" android:textColor="#000"
-						android:text="started: " />
-					<TextView android:id="@+id/dateText" android:layout_width="fill_parent"
-						android:layout_height="wrap_content" android:textColor="#000" />
-				</TableRow>
-				<TableRow>
-					<TextView android:layout_width="fill_parent"
-						android:layout_height="wrap_content" android:textColor="#000"
-						android:text="updated: " />
-					<TextView android:id="@+id/lastUpdateText"
-						android:layout_width="fill_parent" android:layout_height="wrap_content"
-						android:textColor="#000" android:textSize="14dp" />
-				</TableRow>
-				<TableRow>
-					<TextView android:layout_width="fill_parent"
-						android:layout_height="wrap_content" android:textColor="#000"
-						android:text="tto escal: " />
-					<TextView android:id="@+id/ttoEscalText"
-						android:layout_width="fill_parent" android:layout_height="wrap_content"
-						android:textColor="#000" android:textSize="14dp" />
-				</TableRow>
-			</TableLayout>
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/refText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#DDD"
+                        android:padding="5sp"
+                        android:text="ref number"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/callerText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#DDD"
+                        android:gravity="right"
+                        android:padding="4sp"
+                        android:text="caller"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:id="@+id/callCallerImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="2sp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/statusText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#DDD"
+                        android:padding="5sp"
+                        android:paddingTop="0sp"
+                        android:textColor="#000"
+                        android:textSize="16dp" />
+
+                    <TextView
+                        android:id="@+id/agentText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#DDD"
+                        android:gravity="right"
+                        android:padding="4sp"
+                        android:text="agent"
+                        android:textColor="#000"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:id="@+id/callAgentImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="2sp"
+                        android:paddingTop="4sp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#EEE"
+                android:paddingTop="5sp"
+                android:text="Title"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:padding="5sp">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="started: "
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/dateText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="updated: "
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/lastUpdateText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:text="tto escal: "
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/ttoEscalText"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </TableRow>
+            </TableLayout>
 
 
-			<TextView android:paddingTop="10dp" android:id="@+id/descText"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:textColor="#000" android:text="description"
-				android:textSize="14dp" android:background="#EEE" />
-			<TextView android:paddingTop="10dp" android:id="@+id/logText"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:textColor="#000" android:text="description"
-				android:textSize="12dp" android:background="#FFF" />
-		</LinearLayout>
-	</ScrollView>
+            <TextView
+                android:id="@+id/descText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#EEE"
+                android:paddingTop="10dp"
+                android:text="description"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/logText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:paddingTop="10dp"
+                android:text="description"
+                android:textColor="#000"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

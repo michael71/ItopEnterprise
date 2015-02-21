@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="app_name">iTop ITSM &amp; CMDB</string>
+    <string name="app_name">iTop ITSM &amp; CMDB</string>
     <string name="app_name_search">iTop - in der CMDB suchen</string>
     <string name="app_name_ticket_details">iTop ITSM &amp; CMDB - Ticket Details</string>
     <string name="app_name_task_details">iTop ITSM &amp; CMDB - Aufgaben Details</string>
@@ -57,9 +57,9 @@
     <string name="tasks_disabled">Nein, keine Aufgaben anzeigen.</string>
     <string name="tasks_enabled">Ja, Aufgaben anzeigen.</string>
     <string name="add_task">neue Aufgabe/Task.</string>
-    <string name="copyright">Copyright 2011,2012,2013 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
-    <string name="whatisitopandroid">Der iTop-Android-Client erlaubt eine Suche in den CMDB-Informationen, in\nbeliebigen Abfragen des Datenbestands, und einen Zugriff auf alle\noffenen Helpdesk- und Incident-Tickets sowie auf alle offenen, Ihnen als\nBearbeiter zugewiesenen Tickets.</string>
-    <string name="whatisitop">iTop ist eine leistungsfähige, web-basierte Open Source CMDB mit\nITIL-konformen Prozessmodulen für die Unterstützung von ITSM-Prozessen\nvornehmlich aus dem Bereich Operations. Es beinhaltet ein\nTicketing-System, ein Self-Service-Portal sowie leistungsfähige\nSchnittstellen zu Drittsystemen für die Datensynchronisation. \nInformieren Sie sich unter www.itomig.de/itop .</string>
+    <string name="copyright">Copyright 2011-2015 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
+    <string name="whatisitopandroid">Der iTop-Android-Client erlaubt eine Suche in den CMDB-Informationen, in beliebigen Abfragen des Datenbestands, und einen Zugriff auf alle offenen Helpdesk- und Incident-Tickets sowie auf alle offenen, Ihnen als Bearbeiter zugewiesenen Tickets.</string>
+    <string name="whatisitop">iTop ist eine leistungsfähige, web-basierte Open Source CMDB mit ITIL-konformen Prozessmodulen für die Unterstützung von ITSM-Prozessen vornehmlich aus dem Bereich Operations. Es beinhaltet ein Ticketing-System, ein Self-Service-Portal sowie leistungsfähige Schnittstellen zu Drittsystemen für die Datensynchronisation. Informieren Sie sich unter www.itomig.de/itop .</string>
     <string name="about_app_title">ITSM &amp; CMDB für Android</string>
     <string name="itopstat">iTop wurde bereits mehr als 75 000 mal heruntergeladen.</string>
 

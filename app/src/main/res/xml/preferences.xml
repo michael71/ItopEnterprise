@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-<PreferenceCategory
-    android:title="@string/server">
-    <EditTextPreference
-        android:name="iTop server url"
-        android:summary="@string/server_url"
-        android:title="iTop server url"
-        android:key="urlPref" />
-    <CheckBoxPreference
-        android:key="sslPref"
-        android:title="@string/enable_ssl"
-        android:summaryOff="@string/ssl_disabled"
-        android:summaryOn="@string/ssl_enabled"
-        android:defaultValue="true" />
-    <CheckBoxPreference
-        android:key="itilTicketsPref"
-        android:title="@string/enable_itil_tickets"
-        android:summaryOff="@string/itil_tickets_disabled"
-        android:summaryOn="@string/itil_tickets_enabled"
-        android:defaultValue="false" />
-    <CheckBoxPreference
-        android:key="taskPref"
-        android:title="@string/enable_tasks"
-        android:summaryOff="@string/tasks_disabled"
-        android:summaryOn="@string/tasks_enabled"
-        android:defaultValue="false" />
-	
- </PreferenceCategory>
- <PreferenceCategory android:title="@string/user">
-    <EditTextPreference
-        android:key="loginPref"
-        android:title="@string/login"
-        android:summary="@string/user_login" />
-    <EditTextPreference
-        android:key="passwordPref"
-        android:title="@string/password"
-        android:password="true"    />
-</PreferenceCategory>
-<PreferenceCategory android:title="@string/notification">
-<ListPreference
-           android:title="@string/notify_when"
-           android:summary="..."
-           android:key="notifyPref"
-           android:entries="@array/notification_entries"
-           android:entryValues="@array/notification_values"
-           android:defaultValue="0"/>           
-  </PreferenceCategory>       
+    <PreferenceCategory android:title="@string/server">
+        <EditTextPreference
+            android:name="iTop server url"
+            android:key="urlPref"
+            android:summary="@string/server_url"
+            android:title="iTop server url" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sslPref"
+            android:summaryOff="@string/ssl_disabled"
+            android:summaryOn="@string/ssl_enabled"
+            android:title="@string/enable_ssl" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="itilTicketsPref"
+            android:summaryOff="@string/itil_tickets_disabled"
+            android:summaryOn="@string/itil_tickets_enabled"
+            android:title="@string/enable_itil_tickets" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="taskPref"
+            android:summaryOff="@string/tasks_disabled"
+            android:summaryOn="@string/tasks_enabled"
+            android:title="@string/enable_tasks" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/user">
+        <EditTextPreference
+            android:key="loginPref"
+            android:summary="@string/user_login"
+            android:title="@string/login" />
+        <EditTextPreference
+            android:key="passwordPref"
+            android:password="true"
+            android:title="@string/password" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/notification">
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/notification_entries"
+            android:entryValues="@array/notification_values"
+            android:key="notifyPref"
+            android:summary="..."
+            android:title="@string/notify_when" />
+    </PreferenceCategory>
 </PreferenceScreen>

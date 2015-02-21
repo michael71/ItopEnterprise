@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/release/support-v4-18.0.0-ec5f105e7995ffae3adacb5bacd4960ee0096747.jar" />
+    </item>
+    <item
+        jar="/home/mblank/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/release/gson-2.2.4-db6e10b838ceb241c98644947883306e85b182ab.jar" />
+    </item>
+
+</items>

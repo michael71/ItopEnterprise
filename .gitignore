@@ -1,0 +1,6 @@
+.idea
+.gradle
+*.iml
+private-readme.txt
+build
+gitpush.sh

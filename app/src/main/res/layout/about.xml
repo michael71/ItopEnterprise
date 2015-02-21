@@ -1,56 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/scroll2" android:layout_width="fill_parent"
-	android:layout_height="fill_parent" android:background="#FFF"
-	android:padding="10sp">
-	<LinearLayout
-		android:orientation="vertical" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:background="#FFF">
-		<LinearLayout 
-			android:orientation="horizontal" android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
-			<ImageView android:layout_height="wrap_content"
-				android:src="@drawable/logo7" android:layout_width="wrap_content"
-				android:padding="5sp" android:gravity="center_vertical" />
-			<TextView android:id="@+id/title" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:text="@string/about_app_title"
-				android:padding="5sp" android:paddingBottom="0sp" android:textSize="22sp"
-				android:textColor="#000" />
-		</LinearLayout>
-		<TextView android:id="@+id/connected_to"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:background="#DDD" android:autoLink="all"
-			android:text="@string/whatisitop"
-			android:textSize="14sp" android:paddingTop="8sp"
-			android:paddingBottom="4sp" android:textColor="#000" />
-				<TextView android:id="@+id/connected_to2"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:background="#DDD" android:autoLink="all"
-			android:text="@string/whatisitopandroid"
-			android:textSize="14sp" android:paddingTop="8sp"
-			android:paddingBottom="4sp" android:textColor="#000" />
-						<TextView android:id="@+id/connected_to3"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:background="#DDD" android:autoLink="all"
-			android:text="@string/itopstat"
-			android:textSize="14sp" android:paddingTop="8sp"
-			android:paddingBottom="4sp" android:textColor="#000" />
-		<LinearLayout 
-			android:orientation="horizontal" android:layout_width="fill_parent"
-			android:layout_height="wrap_content">
-		<TextView android:id="@+id/version" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="version -"
-			android:textSize="14sp" android:paddingTop="5sp" android:textColor="#000" />
-		<ImageView android:layout_height="wrap_content" android:src="@drawable/itomig_logo_170"
-			android:scaleType="center" 
-			android:layout_width="fill_parent" android:paddingTop="0sp"
-			android:gravity="center_vertical" />
-			</LinearLayout>
-		<TextView android:id="@+id/copyright" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:autoLink="all"
-			android:text="@string/copyright" android:textSize="14sp"
-			android:paddingTop="4sp" android:paddingBottom="8sp"
-			android:textColor="#000" android:gravity="center_horizontal" 
-			android:background="#DDD" />
-	</LinearLayout>
+    android:id="@+id/scroll2"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF"
+    android:padding="10sp">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="5sp"
+                android:src="@drawable/logo7" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5sp"
+                android:paddingBottom="0sp"
+                android:text="@string/about_app_title"
+                android:textColor="#000"
+                android:textSize="22sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/connected_to"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:background="#DDD"
+            android:paddingBottom="4sp"
+            android:paddingTop="8sp"
+            android:text="@string/whatisitop"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/connected_to2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:background="#DDD"
+            android:paddingBottom="4sp"
+            android:paddingTop="8sp"
+            android:text="@string/whatisitopandroid"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/connected_to3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:background="#DDD"
+            android:paddingBottom="4sp"
+            android:paddingTop="8sp"
+            android:text="@string/itopstat"
+            android:textColor="#000"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="5sp"
+                android:text="version -"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="0sp"
+                android:scaleType="center"
+                android:src="@drawable/itomig_logo_170" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/copyright"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:background="#DDD"
+            android:gravity="center_horizontal"
+            android:paddingBottom="8sp"
+            android:paddingTop="4sp"
+            android:text="@string/copyright"
+            android:textColor="#000"
+            android:textSize="14sp" />
+    </LinearLayout>
 </ScrollView>

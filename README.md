@@ -1,5 +1,5 @@
-ItopMobile
-==========
+ItopEnterprise
+==============
 
 Android Application for the IT Service Management Tool iTop. 
 

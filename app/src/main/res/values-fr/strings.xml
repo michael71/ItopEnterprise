@@ -58,7 +58,7 @@
     <string name="tasks_disabled">Non, ne pas afficher de taches.</string>
     <string name="tasks_enabled">Oui, afficher les taches.</string>
     <string name="add_task">créer une nouvelle tache.</string>
-    <string name="copyright">Copyright 2011,2012,2013 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
+    <string name="copyright">Copyright 2011-2015 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
     <string name="whatisitopandroid">Le client Android pour iTop peut rechercher des CI et des personnes dans la CMDB et afficher le statut en cours pour les tickets des demandes utilisateurs et des incidents</string>
     <string name="whatisitop">iTop est un CMDB web et Open Source contenant des Modules pour chaque processus ITIL. Il comprends un module Ticketing, un portail Self-Service et plusieurs interfaces pour des outils tierce-partie. Plus d\'infos: www.itomig.de/itop et www.combodo.com .</string>
     <string name="about_app_title">ITSM &amp; CMDB pour Android</string>

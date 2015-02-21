@@ -1,23 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/toast_layout_root" android:orientation="horizontal"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:padding="10dp" android:background="#E888">
-<LinearLayout 
-	android:id="@+id/toast_layout_2" android:orientation="vertical"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:padding="10dp" android:background="#E888">
+    android:id="@+id/toast_layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E888"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-	<TextView android:id="@+id/refText" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:textColor="#FFF" />
-	<TextView android:id="@+id/titleText" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:textColor="#FFF"
-		android:textStyle="bold" />
-	<TextView android:id="@+id/descText" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:textColor="#FFF" />
-	<TextView android:id="@+id/dateText" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:textColor="#FFF" />
-	<ImageView android:id="@+id/image" android:layout_width="wrap_content"
-		android:layout_height="fill_parent" android:layout_marginRight="2dp" />
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/toast_layout_2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#E888"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/refText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/descText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFF" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="2dp" />
+    </LinearLayout>
 </LinearLayout>

@@ -1,22 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/LinearLayout01"
-	android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-	android:paddingLeft="2sp" android:paddingRight="2sp"
-	android:layout_height="wrap_content" android:orientation="horizontal"
-	android:paddingTop="5sp" android:background="#ffffff">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="horizontal"
+    android:paddingLeft="2sp"
+    android:paddingRight="2sp"
+    android:paddingTop="5sp">
 
-	<TextView android:id="@+id/tv_ticket" android:layout_height="wrap_content"
-		android:layout_width="0px" android:layout_weight="85"
-		android:typeface="sans" android:textSize="16sp" android:textColor="#002200" />
-	<LinearLayout android:id="@+id/LinearLayout01"
-		android:layout_width="0px" android:layout_weight="15"
-		android:paddingLeft="0sp" android:paddingRight="0sp"
-		android:layout_height="wrap_content" android:orientation="vertical"
-		android:paddingTop="0sp" android:gravity="right">
-		<ImageView android:id="@+id/imagev" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" />
-		<ImageView android:id="@+id/imagev2" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" />
-	</LinearLayout>
+    <TextView
+        android:id="@+id/tv_ticket"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="85"
+        android:textColor="#002200"
+        android:textSize="16sp"
+        android:typeface="sans" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="15"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:paddingLeft="0sp"
+        android:paddingRight="0sp"
+        android:paddingTop="0sp">
+
+        <ImageView
+            android:id="@+id/imagev"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/imagev2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

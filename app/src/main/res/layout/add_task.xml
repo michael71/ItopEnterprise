@@ -1,59 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/show_ticket" android:orientation="vertical"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:padding="5dp" android:background="#FFF">
-	<Button
+    android:id="@+id/show_ticket"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFF"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        
+
         android:text="EDIT Task" />
-			<LinearLayout android:id="@+id/LinearLayout01"
-				android:layout_width="fill_parent" android:paddingLeft="2sp"
-				android:paddingRight="2sp" android:layout_height="wrap_content"
-				android:orientation="horizontal" android:paddingTop="2sp"
-				android:gravity="left">
-				<ImageView android:id="@+id/image" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:padding="6sp" />
-			</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:paddingLeft="2sp"
+        android:paddingRight="2sp"
+        android:paddingTop="2sp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="6sp" />
+    </LinearLayout>
 
 
-					<TableLayout android:layout_width="fill_parent"
-				android:padding="5sp" android:layout_height="wrap_content"
-				android:stretchColumns="1"
-				android:orientation="vertical" 
-				android:background="#DDD" >
-				<TableRow>
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#DDD"
+        android:orientation="vertical"
+        android:padding="5sp"
+        android:stretchColumns="1">
 
-<TextView android:id="@+id/callerText"
-						android:layout_width="fill_parent" android:layout_height="wrap_content"
-						android:textColor="#000" android:text="caller" android:textSize="12sp"
-						android:background="#DDD" android:padding="4sp" android:gravity="right" />
-<ImageView android:id="@+id/callCallerImage" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:padding="2sp"
-					android:layout_gravity="center" />
-				</TableRow>
-				<TableRow>
-				<TextView android:id="@+id/statusText"
-						android:layout_width="fill_parent" android:layout_height="wrap_content"
-						android:textColor="#000" android:padding="5sp" android:paddingTop="0sp"
-						android:textSize="16sp" android:background="#DDD" />
-			</TableRow>
+        <TableRow>
 
-			</TableLayout>	
-			<TextView android:id="@+id/titleText" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:textColor="#000"
-				android:paddingTop="5sp" android:text="Title" android:textSize="20dp"
-				android:background="#EEE"
-				android:textStyle="bold" />
+            <TextView
+                android:id="@+id/callerText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDD"
+                android:gravity="right"
+                android:padding="4sp"
+                android:text="caller"
+                android:textColor="#000"
+                android:textSize="12sp" />
 
-			<TextView android:paddingTop="10dp" android:id="@+id/descText"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:textColor="#000" android:text="description"
-				android:textSize="14dp" android:background="#EEE" />
-			<TextView android:paddingTop="10dp" android:id="@+id/remarkText"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:textColor="#000" android:text="remark"
-				android:textSize="12dp" android:background="#FFF" />
+            <ImageView
+                android:id="@+id/callCallerImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="2sp" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#DDD"
+                android:padding="5sp"
+                android:paddingTop="0sp"
+                android:textColor="#000"
+                android:textSize="16sp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEE"
+        android:paddingTop="5sp"
+        android:text="Title"
+        android:textColor="#000"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/descText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#EEE"
+        android:paddingTop="10dp"
+        android:text="description"
+        android:textColor="#000"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/remarkText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:paddingTop="10dp"
+        android:text="remark"
+        android:textColor="#000"
+        android:textSize="12dp" />
 </LinearLayout>

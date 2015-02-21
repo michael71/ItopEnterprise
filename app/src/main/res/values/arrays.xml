@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string-array name="search_category">
-		<item>Functional CI</item>
-		<item>Person</item>
-	</string-array>
-	<string-array name="notification_values">
-		<item>0</item>
-		<item>1</item>
-		<item>2</item>
-	</string-array>
-	<string-array name="notification_entries">
-		<item>nie</item>
-		<item>bei neuen Prio1 Incidents</item>
-		<item>bei neuen Prio1 Incidents und Updates</item>
-	</string-array>
-	<string-array name="priority">
-	    <item>kritisch</item>
-		<item>hoch</item>
-		<item>mittel</item>
-		<item>niedrig</item>
-	</string-array>
-	<string-array name="status">
-		<item>neu</item>
-		<item>in Arbeit</item>
-		<item>erledigt</item>
-		<item>inaktiv</item>
-		<item>gelöscht</item>
-	</string-array>
+    <string-array name="search_category">
+        <item>Functional CI</item>
+        <item>Person</item>
+    </string-array>
+    <string-array name="notification_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="notification_entries">
+        <item>nie</item>
+        <item>bei neuen Prio1 Incidents</item>
+        <item>bei neuen Prio1 Incidents und Updates</item>
+    </string-array>
+    <string-array name="priority">
+        <item>kritisch</item>
+        <item>hoch</item>
+        <item>mittel</item>
+        <item>niedrig</item>
+    </string-array>
+    <string-array name="status">
+        <item>neu</item>
+        <item>in Arbeit</item>
+        <item>erledigt</item>
+        <item>inaktiv</item>
+        <item>gelöscht</item>
+    </string-array>
 </resources>
