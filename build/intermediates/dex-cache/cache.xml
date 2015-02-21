@@ -2,18 +2,32 @@
 <items version="2" >
 
     <item
-        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-v4/18.0.0/support-v4-18.0.0.jar"
+        jar="/opt/android-sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.0/support-annotations-21.0.0.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
-        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/release/support-v4-18.0.0-ec5f105e7995ffae3adacb5bacd4960ee0096747.jar" />
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.0-46343f13dc8a8d80032074a2865adb0d89f89059.jar" />
+    </item>
+    <item
+        jar="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/classes.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/debug/classes-397ca811a2e70ebb05b221605d9851f23fd58d0d.jar" />
     </item>
     <item
         jar="/home/mblank/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.2.4/a60a5e993c98c864010053cb901b7eab25306568/gson-2.2.4.jar"
         jumboMode="false"
         revision="20.0.0"
         sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/release/gson-2.2.4-db6e10b838ceb241c98644947883306e85b182ab.jar" />
+        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/debug/gson-2.2.4-db6e10b838ceb241c98644947883306e85b182ab.jar" />
+    </item>
+    <item
+        jar="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.0/libs/internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="20.0.0"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="/home/mblank/AndroidstudioProjects/ItopEnterprise/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.0-6c029b0e2e615b994062b9ae8f5537ef7465df60.jar" />
     </item>
 
 </items>

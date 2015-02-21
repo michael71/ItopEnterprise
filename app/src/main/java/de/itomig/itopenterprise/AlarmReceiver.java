@@ -33,7 +33,7 @@ import static de.itomig.itopenterprise.ItopConfig.debug;
  * requesting http data
  *
  * @author Michael Blank
- * @copyriht
+ *
  */
 public class AlarmReceiver extends BroadcastReceiver {
 
@@ -53,7 +53,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     public static void releaseLock() {
         if ((wakeLock != null) && (wakeLock.isHeld())) {
             wakeLock.release();
-            Log.i(TAG, "BG AlarmReceiver: released wakeLock");
+            if (debug) Log.i(TAG, "BG AlarmReceiver: released wakeLock");
         }
 
     }
@@ -61,7 +61,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (isNetworkConnected(context)) {
-            Log.i(TAG, "BG AlarmReceiver: onReceive, starting BackgroundCheck service");
+            if (debug) Log.i(TAG, "BG AlarmReceiver: onReceive, starting BackgroundCheck service");
             acquireLock(context);
             Intent serviceIntent = new Intent(context, de.itomig.itopenterprise.BackgroundCheck.class);
             context.startService(serviceIntent);
@@ -71,7 +71,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             pl.update();
         } else {
             // do nothing
-            Log.i(TAG, "BG: no network connection.");
+            Log.e(TAG, "BG: no network connection.");
         }
 
     }
@@ -83,7 +83,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isAvailable() && cm.getActiveNetworkInfo().isConnected()) {
             return true;
         } else {
-            if (debug) Log.i(TAG, "BG: no network connection.");
+            Log.e(TAG, "BG: no network connection.");
             return false;
         }
     }

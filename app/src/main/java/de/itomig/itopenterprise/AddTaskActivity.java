@@ -49,12 +49,13 @@ import static de.itomig.itopenterprise.ItopConfig.personLookup;
  */
 public class AddTaskActivity extends Activity {
     private Spinner spPerson, spOrg, spStatus, spPrio;
-    private Button btnCancel, btnSave;
-    private EditText title, desc, remark;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Button btnCancel, btnSave;
+        final EditText  title;
+        //EditText desc, remark;
         setContentView(R.layout.activity_add);
 
         spPerson = (Spinner) findViewById(R.id.spPerson);
@@ -62,8 +63,8 @@ public class AddTaskActivity extends Activity {
         spStatus = (Spinner) findViewById(R.id.spStatus);
         spPrio = (Spinner) findViewById(R.id.spPriority);
         title = (EditText) findViewById(R.id.titleInput);
-        desc = (EditText) findViewById(R.id.descInput);
-        remark = (EditText) findViewById(R.id.remarkInput);
+        //desc = (EditText) findViewById(R.id.descInput);
+        //remark = (EditText) findViewById(R.id.remarkInput);
 
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnSave = (Button) findViewById(R.id.btnSave);
@@ -104,10 +105,7 @@ public class AddTaskActivity extends Activity {
         List<String> orglist = new ArrayList<String>();
         int idItomig = 0;
 
-        Iterator<Entry<Integer, String>> it2 = organizationLookup.entrySet()
-                .iterator();
-        while (it2.hasNext()) {
-            Entry<Integer, String> pairs = it2.next();
+        for (Entry<Integer, String> pairs : organizationLookup.entrySet()) {
             if (debug)
                 Log.d(TAG,
                         "orgLookup " + pairs.getKey() + " = "
@@ -137,15 +135,15 @@ public class AddTaskActivity extends Activity {
                 if (pairs.getValue().getOrg_id() == idItomig) {
                     if (debug)
                         Log.d(TAG, "personLookup " + pairs.getKey() + " = "
-                                + ((Person) pairs.getValue()).getFriendlyname());
-                    list.add(((Person) pairs.getValue()).getFriendlyname());
+                                + ( pairs.getValue()).getFriendlyname());
+                    list.add((pairs.getValue()).getFriendlyname());
                 }
             } else {
                 // get all people if ITOMIG not found
                 if (debug)
                     Log.d(TAG, "personLookup " + pairs.getKey() + " = "
-                            + ((Person) pairs.getValue()).getFriendlyname());
-                list.add(((Person) pairs.getValue()).getFriendlyname());
+                            + (pairs.getValue()).getFriendlyname());
+                list.add((pairs.getValue()).getFriendlyname());
             }
         }
 

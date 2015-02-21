@@ -61,7 +61,8 @@ public class InternalTask extends CMDBObject {
         if (name.length() != 0)
             sb.append(" - "); // avoid to display the '-' when the ticket is misused for showing errors etc.
         sb.append("\nResp: ");
-        sb.append(person_id_friendlyname + "\n");
+        sb.append(person_id_friendlyname);
+        sb.append("\n");
         sb.append(description);
         return sb.toString();
     }

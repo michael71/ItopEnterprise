@@ -190,16 +190,6 @@ public class TicketDetailActivity extends Activity {
 
     private void dispCallerAndAgent() {
         // determine friendly name of both caller and agent
-        ArrayList<Integer> ids = new ArrayList<Integer>();
-
-        ids.clear();
-        if (t.getCallerID() != INVALID_ID) {
-            ids.add(t.getCallerID());
-        }
-
-        if (t.getAgentID() != INVALID_ID) {
-            ids.add(t.getAgentID());
-        }
 
         Person p = personLookup.get(t.getCallerID());
 

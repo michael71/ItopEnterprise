@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "de.itomig.itopenterprise"
-        minSdkVersion 8
-        targetSdkVersion 11
+        minSdkVersion 9
+        targetSdkVersion 21
     }
 
     buildTypes {
@@ -18,6 +18,6 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
+    compile 'com.android.support:support-v4:21.0.0'
     compile 'com.google.code.gson:gson:2.2.4'
 }

@@ -39,6 +39,10 @@ import de.itomig.itopenterprise.cmdb.Person;
 
 @SuppressLint("UseSparseArrays")
 public class ItopConfig extends Application {
+    // DEBUG must be false for all versions released to android market
+    // also remove    android:debuggable="true"  in the AndroidManifest.xml
+    public static boolean debug = false;
+
     public static final int HTTP_STATUS_OK = 200;
     // corporate version with URL check and update from itomig.de
     // or Android market version with update from market
@@ -60,9 +64,8 @@ public class ItopConfig extends Application {
     public static final int NOTIFICATION_ID_INCIDENT = 1;
     public static final int BACKGROUND_INTERVAL_MIN = 10;
     public static final int DISPLAY_REFRESH_SECS = 120;
-    // DEBUG must be false for all versions released to android market
-    // also remove    android:debuggable="true"  in the AndroidManifest.xml
-    public static boolean debug = false;
+
+
     public static Context itopAppContext;
     // default values point to DEMO server
     public static String DEMO_URL = "www.itomig.de/itop-demo20";
@@ -91,9 +94,7 @@ public class ItopConfig extends Application {
 
     public static String[] prioStrings;  // language dependent, read from arrays.xml
 
-    public static void init(boolean debugflag, boolean demoflag, Context context, Class itopmob) {
-
-        debug = debugflag;
+    public static void init(Context context, Class itopmob) {
 
         Log.i(TAG, "ItopLib initialized - debug=" + debug);
 
@@ -160,34 +161,33 @@ public class ItopConfig extends Application {
 
     public static BasicNameValuePair getItopPwdNameValuePair() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itopAppContext);
-        String password = prefs.getString(KEY_PASSWORD, DEMO_PASSWORD).trim();
+        String password = null;
+        try {
+            password = URLEncoder.encode(prefs.getString(KEY_PASSWORD, DEMO_PASSWORD).trim(), "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            Log.e(TAG, e.getMessage());
+        }
         return new BasicNameValuePair("auth_pwd", password);
     }
 
     public static int getItopNotifySetting() {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itopAppContext);
-        int mNotifyCondition = Integer.valueOf(prefs.getString(KEY_NOTIFY, "0"));
-
-        return mNotifyCondition;
+        return Integer.valueOf(prefs.getString(KEY_NOTIFY, "0"));
 
     }
 
     public static boolean isEnabledlITILTicket() {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itopAppContext);
-        boolean itil = prefs.getBoolean(KEY_ITIL_TICKETS, true);
-
-        return itil;
+        return  prefs.getBoolean(KEY_ITIL_TICKETS, true);
 
     }
 
     public static boolean isEnabledlTasks() {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itopAppContext);
-        boolean itil = prefs.getBoolean(KEY_TASKS, true);
-
-        return itil;
+        return prefs.getBoolean(KEY_TASKS, true);
 
     }
 

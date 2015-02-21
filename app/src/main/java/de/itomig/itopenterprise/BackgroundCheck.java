@@ -128,13 +128,16 @@ public class BackgroundCheck extends Service {
 
             // if more then one new ticket, mark here with n*
             if (bgtickets.size() > 1) {
-                note.append(bgtickets.size() + "* ");
+                note.append(bgtickets.size());
+                note.append( "* ");
             }
 
             // assemble strings for info (toast on UI) and note (notification)
             for (int i = 0; i < bgtickets.size(); i++) {
-                info.append("\n" + bgtickets.get(i).toShortString());
-                note.append(" " + bgtickets.get(i).getTitle());  // display only title in notification
+                info.append("\n");
+                info.append(bgtickets.get(i).toShortString());
+                note.append(" ");
+                note.append(bgtickets.get(i).getTitle());  // display only title in notification
             }
 
             String expText = note.toString();  // text des incidents
@@ -198,6 +201,7 @@ public class BackgroundCheck extends Service {
         try {
             Thread.sleep(100);  // wait a few milliseconds before starting the other server request
         } catch (InterruptedException e) {
+            Log.e(TAG,"could not sleep");
         }
     }
 

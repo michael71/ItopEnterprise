@@ -30,12 +30,12 @@ public class ItopUtils {
      * "lastUpdate" string as the last from the last call)
      * not persistent over restart of service ! TODO
      *
-     * @param in
-     * @return
+     * @param in input with arraylist of itop tickets
+     * @return output list of itop tickets
      */
     protected static ArrayList<ItopTicket> removeRepeatingTickets(ArrayList<ItopTicket> in) {
         ArrayList<ItopTicket> out = new ArrayList<ItopTicket>();
-        boolean foundDuplicate = false;
+        boolean foundDuplicate;
 
         if (in.isEmpty()) {
             // nothing to do in this case

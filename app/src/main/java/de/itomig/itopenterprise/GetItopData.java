@@ -57,7 +57,7 @@ public class GetItopData {
 
         XmlResult result = getDataFromItopServer(selectExpression);
 
-        if (result.error == "") {
+        if (result.error.isEmpty()) {
             // Parse the data
             tickets = parseTicketDoc(result.doc);
             return tickets;
@@ -67,8 +67,9 @@ public class GetItopData {
                     ERROR,
                     result.error,
                     "", "3", ""));
+            Log.e(TAG,result.error);
 
-            return null;
+            return tickets;
         }
 
 
@@ -164,7 +165,7 @@ public class GetItopData {
             String selectExpression) {
         XmlResult result = getDataFromItopServer(selectExpression);
 
-        if (result.error == "") {
+        if (result.error.isEmpty()) {
             // Parse the data
             organizations = parseOrganizationDoc(result.doc);
             return organizations;
@@ -179,7 +180,7 @@ public class GetItopData {
 
         XmlResult result = getDataFromItopServer(selectExpression);
 
-        if (result.error == "") {
+        if (result.error.isEmpty()) {
             // Parse the data
             persons = parsePersonDoc(result.doc);
             return persons;
@@ -255,7 +256,7 @@ public class GetItopData {
 
             int id;
             try {
-                if (org_name != "") {
+                if (!org_name.isEmpty()) {
                     id = Integer.parseInt(org_id);
                     organizations.add(new Organization(id, org_name));
                 } else {

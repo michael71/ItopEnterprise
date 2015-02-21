@@ -116,7 +116,7 @@ public class ItopEnterpriseActivity extends TabActivity {
         setContentView(R.layout.main);
         if (DEBUG)
             Log.i(TAG, "ItopMobileActivity - onCreate");
-        int whoCalled = 0;
+        int whoCalled;
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             whoCalled = extras.getInt("type");

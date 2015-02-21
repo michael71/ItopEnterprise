@@ -216,7 +216,7 @@ public class MainActivity extends Activity {
         getParent().setProgressBarVisibility(true);
 
         if (this.getLocalClassName().contains("Task")) {
-            if (taskRequestRunningFlag == false) {
+            if (!taskRequestRunningFlag) {
                 taskRequestRunningFlag = true;
                 if (debug)
                     Log.i(TAG, this.getLocalClassName() + " - update() Tasks");
@@ -230,7 +230,7 @@ public class MainActivity extends Activity {
             }
 
         } else {
-            if (ticketRequestRunningFlag == false) {
+            if (!ticketRequestRunningFlag) {
                 ticketRequestRunningFlag = true;
                 if (debug)
                     Log.i(TAG, this.getLocalClassName() + " - update() Tickets");

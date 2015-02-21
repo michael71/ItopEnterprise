@@ -40,7 +40,7 @@ public class ItopApplication extends Application {
         super.onCreate();
 
         if (DEBUG) Log.i("ITOP", "ItopApplication - onCreate");
-        ItopConfig.init(DEBUG, true, getApplicationContext(), ItopEnterpriseActivity.class);
+        ItopConfig.init(getApplicationContext(), ItopEnterpriseActivity.class);
 
     }
 

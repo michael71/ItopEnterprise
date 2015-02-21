@@ -47,8 +47,8 @@ public class AboutActivity extends Activity {
 
         setContentView(R.layout.about);
         versTv = (TextView) findViewById(R.id.version);
-        int version = -1;
-        String vName = "";
+        int version;
+        String vName;
 
         PackageInfo pInfo;
         try {
@@ -62,7 +62,7 @@ public class AboutActivity extends Activity {
         }
 
         if (debug) Log.i(TAG, "About screen - version " + vinfo);
-        versTv.setText(vinfo.toString());
+        versTv.setText(vinfo);
 
 
     }

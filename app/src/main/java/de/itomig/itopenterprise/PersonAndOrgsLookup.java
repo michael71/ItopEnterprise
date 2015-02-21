@@ -44,7 +44,7 @@ public class PersonAndOrgsLookup {
         //if (debug)
         //	Log.d(TAG, "PersonAndOrgsLookup");
 
-        if (reqRunningFlag == false) {
+        if (!reqRunningFlag) {
             if ((System.currentTimeMillis() - personLookupTime) > 150 * MIN) {
                 reqRunningFlag = true;
                 RequestPersonsFromServerTask reqServer = new RequestPersonsFromServerTask();

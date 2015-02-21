@@ -57,11 +57,11 @@ public class GetItopJSON {
     /**
      * request data from itop server in json format
      *
-     * @param operation
-     * @param itopClass
-     * @param key
-     * @param output_fields
-     * @return
+     * @param operation core/get etc
+     * @param itopClass CI class
+     * @param key  itop SELECT expression
+     * @param output_fields attribute fields which should be returned
+     * @return String with json data from server
      */
     public static String postJsonToItopServer(String operation,
                                               String itopClass, String key, String output_fields) {
@@ -134,10 +134,11 @@ public class GetItopJSON {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
 
-        String line = null;
+        String line;
         try {
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line);
+                sb.append("\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -207,7 +208,7 @@ public class GetItopJSON {
 
     public static String getMessage(String json) {
         String message = "";
-        JSONObject jsonObject = null;
+        JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(json);
             int code = jsonObject.getInt("code");

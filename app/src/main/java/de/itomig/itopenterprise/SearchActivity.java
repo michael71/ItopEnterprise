@@ -155,8 +155,9 @@ public class SearchActivity extends Activity {
 
     }
 
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode,KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && webview.canGoBack()) {
             webview.goBack();
             return true;

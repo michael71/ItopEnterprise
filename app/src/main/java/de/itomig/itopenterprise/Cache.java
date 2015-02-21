@@ -60,7 +60,7 @@ public class Cache {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putString("CACHE-PERSONS", json).commit();
         if (debug) Log.d(TAG, "CACHE - writing persons. datetime=" +
-                DateFormat.format("dd.MM - hh:mm:ss", personLookupTime));
+                DateFormat.format("dd.MM - HH:mm:ss", personLookupTime));
         prefs.edit().putLong("CACHETIME-PERSONS", personLookupTime).commit();
 
     }
@@ -75,7 +75,7 @@ public class Cache {
 
         prefs.edit().putString("CACHE-ORGS", json).commit();
         if (debug) Log.d(TAG, "CACHE - writing organizations. datetime=" +
-                DateFormat.format("dd.MM - hh:mm:ss", organizationLookupTime));
+                DateFormat.format("dd.MM - HH:mm:ss", organizationLookupTime));
         prefs.edit().putLong("CACHETIME-ORGS", organizationLookupTime).commit();
 
     }
