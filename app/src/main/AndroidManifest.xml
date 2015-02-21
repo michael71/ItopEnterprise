@@ -35,7 +35,7 @@
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>ist nicht mit dieser version kompatibel
+        </activity>
         <activity
             android:name="de.itomig.itopenterprise.InternalTaskActivity"
             android:label="@string/app_name">
