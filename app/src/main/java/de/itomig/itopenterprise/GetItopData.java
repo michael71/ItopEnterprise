@@ -1,19 +1,19 @@
 // Copyright (C) 2011-2013 ITOMIG GmbH
 //
-//   This file is part of iTopMobile.
+//   This file is part of iTopEnterprise.
 //
-//   iTopMobile is free software; you can redistribute it and/or modify	
+//   iTopEnterprise is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation, either version 3 of the License, or
 //   (at your option) any later version.
 //
-//   iTopMobile is distributed in the hope that it will be useful,
+//   iTopEnterprise is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
 //
 //   You should have received a copy of the GNU General Public License
-//   along with iTopMobile. If not, see <http://www.gnu.org/licenses/>
+//   along with iTopEnterprise. If not, see <http://www.gnu.org/licenses/>
 package de.itomig.itopenterprise;
 
 
@@ -44,30 +44,43 @@ import static de.itomig.itopenterprise.ItopConfig.ERROR;
 import static de.itomig.itopenterprise.ItopConfig.TAG;
 import static de.itomig.itopenterprise.ItopConfig.debug;
 
+/** sends XML request to iTop Server and parses the returned XML result
+ *  returning ArrayList of Types ItopTicket or Person or Organization
+ */
 public class GetItopData {
 
     private static ArrayList<ItopTicket> tickets = new ArrayList<ItopTicket>();
     private static ArrayList<Person> persons = new ArrayList<Person>();
     private static ArrayList<Organization> organizations = new ArrayList<Organization>();
 
-    // called from AsyncTask - therefor no UI context, no Toast possible from
+    // called from AsyncTask - therefore no UI context, no Toast possible from
     // here.
     public static ArrayList<ItopTicket> getTicketsFromItopServer(
-            String selectExpression) throws Exception {
+            String selectExpression)  {
 
         XmlResult result = getDataFromItopServer(selectExpression);
 
+        if (debug) Log.d(TAG,"xml request expr="+selectExpression);
         if (result.error.isEmpty()) {
             // Parse the data
+
             tickets = parseTicketDoc(result.doc);
             return tickets;
         } else {
             tickets.clear();
-            tickets.add(new ItopTicket(
-                    ERROR,
-                    result.error,
-                    "", "3", ""));
+            if (result.error.contains("SAXParse")) {
+                tickets.add(new ItopTicket(
+                        ERROR,
+                        "Auth ERROR : check if URL login is allowed on iTop Server!",
+                        "", "3", ""));
+            } else {
+                tickets.add(new ItopTicket(
+                        ERROR,
+                        result.error,
+                        "", "3", ""));
+            }
             Log.e(TAG,result.error);
+
 
             return tickets;
         }
@@ -120,24 +133,24 @@ public class GetItopData {
             } else if (name.equalsIgnoreCase("description")) {
                 ticket.setDescription(getConcatNodeValues(property));
             } else if (name.equalsIgnoreCase("start_date")) {
-                ticket.setStartDate(property.getFirstChild().getNodeValue()
+                ticket.setStart_date(property.getFirstChild().getNodeValue()
                         .trim());
             } else if (name.equalsIgnoreCase("tto_escalation_deadline")) {
-                ticket.setTtoEscalationDate(getConcatNodeValues(property));
+                ticket.setTto_escalation_deadline(getConcatNodeValues(property));
             } else if (name.equalsIgnoreCase("caller_id")) {
-                ticket.setCallerID(property.getFirstChild().getNodeValue()
+                ticket.setCaller_id(property.getFirstChild().getNodeValue()
                         .trim());
             } else if (name.equalsIgnoreCase("agent_id")) {
-                ticket.setAgentID(property.getFirstChild().getNodeValue()
+                ticket.setAgent_id(property.getFirstChild().getNodeValue()
                         .trim());
             } else if (name.equalsIgnoreCase("status")) {
                 ticket.setStatus(property.getFirstChild().getNodeValue().trim());
             } else if (name.equalsIgnoreCase("last_update")) {
-                ticket.setLastUpdate(getConcatNodeValues(property));
+                ticket.setLast_update(getConcatNodeValues(property));
             } else if (name.equalsIgnoreCase("ticket_log")) { // itop 1.2
-                ticket.setTicketLog(getConcatNodeValues(property));
+                ticket.setPublic_log(getConcatNodeValues(property));
             } else if (name.equalsIgnoreCase("public_log")) { // itop 2.0
-                ticket.setTicketLog(getConcatNodeValues(property));
+                ticket.setPublic_log(getConcatNodeValues(property));
             }
         }
         return ticket;
@@ -191,7 +204,7 @@ public class GetItopData {
     }
 
     private static ArrayList<Person> parsePersonDoc(Document doc) {
-        // get the root elememt
+        // get the root element
         Element root = doc.getDocumentElement();
         NodeList items = root.getElementsByTagName("Person");
 
@@ -218,7 +231,7 @@ public class GetItopData {
                     org = getConcatNodeValues(property);
                 }
             }
-            // there should ALLWAYS be an id.
+            // there should always be an id.
 
             int id, org_id;
             try {
@@ -235,7 +248,7 @@ public class GetItopData {
     }
 
     private static ArrayList<Organization> parseOrganizationDoc(Document doc) {
-        // get the root elememt
+        // get the root element
         Element root = doc.getDocumentElement();
         NodeList items = root.getElementsByTagName("Organization");
 
@@ -252,7 +265,7 @@ public class GetItopData {
                     org_name = getConcatNodeValues(property);
                 }
             }
-            // there should ALLWAYS be an id.
+            // there should always be an id.
 
             int id;
             try {
@@ -269,7 +282,7 @@ public class GetItopData {
         return organizations;
     }
 
-    public static XmlResult getDataFromItopServer(String selectExpression) {
+    private static XmlResult getDataFromItopServer(String selectExpression) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
 
@@ -313,7 +326,7 @@ public class GetItopData {
             Log.e(TAG, "Get data -  " + e.toString());
             x.error = "Get data -  " + e.toString();
         } finally {
-            client.close(); // needs to be done for androidhttpclient
+            client.close(); // needs to be done for AndroidHttpClient
             if (debug)
                 Log.i(TAG, "...finally.. get data finished");
         }

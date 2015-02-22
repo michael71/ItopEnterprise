@@ -1,24 +1,23 @@
 // Copyright (C) 2011-2013 ITOMIG GmbH
 //
-//   This file is part of iTopMobile.
+//   This file is part of iTopEnterprise.
 //
-//   iTopMobile is free software; you can redistribute it and/or modify	
+//   iTopEnterprise is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation, either version 3 of the License, or
 //   (at your option) any later version.
 //
-//   iTopMobile is distributed in the hope that it will be useful,
+//   iTopEnterprise is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
 //
 //   You should have received a copy of the GNU General Public License
-//   along with iTopMobile. If not, see <http://www.gnu.org/licenses/>
+//   along with iTopEnterprise. If not, see <http://www.gnu.org/licenses/>
 package de.itomig.itopenterprise;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -154,17 +153,17 @@ public class TicketDetailActivity extends Activity {
         priorityIcon.setImageResource(t.prioImageResource());
         tvRef.setText(t.getRef());
         tvTitle.setText(t.getTitle());
-        tvDate.setText(t.getStartDate());
-        tvLastUpdate.setText(t.getLastUpdate());
+        tvDate.setText(t.getStart_date());
+        tvLastUpdate.setText(t.getLast_update());
         // check if tto escalation
 
         if (t.isTtoEscalated()) {
             tvTtoEscal.setTextColor(Color.RED);
-            tvTtoEscal.setText(t.getTtoEscalationDate());
+            tvTtoEscal.setText(t.getTto_escalation_deadline());
             alarmIcon.setImageResource(R.drawable.alarm_clock_64);
         } else {
             tvTtoEscal.setTextColor(Color.BLACK);
-            tvTtoEscal.setText(t.getTtoEscalationDate());
+            tvTtoEscal.setText(t.getTto_escalation_deadline());
             alarmIcon.setImageResource(R.drawable.alarm_clock_64_off);
         }
 
@@ -175,19 +174,19 @@ public class TicketDetailActivity extends Activity {
         agentPhone = null;
         callCaller.setImageResource(R.drawable.nothing32);
         callAgent.setImageResource(R.drawable.nothing32);
-        if (t.getCallerID() != INVALID_ID) {
-            tvCaller.setText("caller# " + t.getCallerID());
+        if (t.getCaller_id() != INVALID_ID) {
+            tvCaller.setText("caller# " + t.getCaller_id());
         } else {
             tvCaller.setText("");
         }
-        if (t.getAgentID() != INVALID_ID) {
-            tvAgent.setText("agent# " + t.getAgentID());
+        if (t.getAgent_id() != INVALID_ID) {
+            tvAgent.setText("agent# " + t.getAgent_id());
         } else {
             tvAgent.setText("");
         }
         tvDesc.setText(t.getDescription());
-        if (t.getTicketLog().length() > 1) {
-            String log2 = t.getTicketLog().replace("============", "");
+        if (t.getPublic_log().length() > 1) {
+            String log2 = t.getPublic_log().replace("============", "");
 
             tvLog.setText(log2.replace("========== ", "\n"));
         }
@@ -198,7 +197,7 @@ public class TicketDetailActivity extends Activity {
         // determine friendly name of both caller and agent
         if (debug) Log.d(TAG,"display caller and agent");
         boolean retrieve = false;
-        Person p = personLookup.get(t.getCallerID());
+        Person p = personLookup.get(t.getCaller_id());
 
         if (p != null) {
             updateCaller(p);
@@ -206,7 +205,7 @@ public class TicketDetailActivity extends Activity {
             retrieve = true;
         }
 
-        p = personLookup.get(t.getAgentID());
+        p = personLookup.get(t.getAgent_id());
         if (p != null) {
             updateAgent(p);
         } else {
@@ -215,7 +214,7 @@ public class TicketDetailActivity extends Activity {
 
         if (retrieve) {
             RefreshPersonsFromServerTask reqPersons = new RefreshPersonsFromServerTask();
-            String expr = "SELECT Person WHERE id = " + t.getAgentID()+ " OR id = "+ t.getCallerID() ;
+            String expr = "SELECT Person WHERE id = " + t.getAgent_id()+ " OR id = "+ t.getCaller_id() ;
             if (debug) Log.d(TAG,"refresh persons = "+expr);
             try {
                 reqPersons.execute(URLEncoder.encode(expr, "UTF-8"));
@@ -311,10 +310,10 @@ public class TicketDetailActivity extends Activity {
                 if (debug)
                     Log.d(TAG, "PersonRefresh - setting person id=" + p.getId() + " to name=" + p.getFriendlyname() + " org_id=" + p.getOrg_id());
             }
-            Person p = personLookup.get(t.getCallerID());
+            Person p = personLookup.get(t.getCaller_id());
             updateCaller(p);
 
-            p = personLookup.get(t.getAgentID());
+            p = personLookup.get(t.getAgent_id());
             updateAgent(p);
 
         }

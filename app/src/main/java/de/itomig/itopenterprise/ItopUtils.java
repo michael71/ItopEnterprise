@@ -1,19 +1,19 @@
 // Copyright (C) 2011-2013 ITOMIG GmbH
 //
-//   This file is part of iTopMobile.
+//   This file is part of iTopEnterprise.
 //
-//   iTopMobile is free software; you can redistribute it and/or modify	
+//   iTopEnterprise is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation, either version 3 of the License, or
 //   (at your option) any later version.
 //
-//   iTopMobile is distributed in the hope that it will be useful,
+//   iTopEnterprise is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
 //
 //   You should have received a copy of the GNU General Public License
-//   along with iTopMobile. If not, see <http://www.gnu.org/licenses/>
+//   along with iTopEnterprise. If not, see <http://www.gnu.org/licenses/>
 
 package de.itomig.itopenterprise;
 
@@ -58,7 +58,7 @@ public class ItopUtils {
             foundDuplicate = false;
             for (int j = 0; j < stored.size(); j++) {
                 if (in.get(i).getRef().equals(stored.get(j).getRef())
-                        && in.get(i).getLastUpdate().equals(stored.get(j).getLastUpdate())) {
+                        && in.get(i).getLast_update().equals(stored.get(j).getLast_update())) {
                     // duplicate found, do not add to out list
                     foundDuplicate = true;
                     break;

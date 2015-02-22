@@ -1,19 +1,19 @@
 // Copyright (C) 2011-2013 ITOMIG GmbH
 //
-//   This file is part of iTopMobile.
+//   This file is part of iTopEnterprise.
 //
-//   iTopMobile is free software; you can redistribute it and/or modify	
+//   iTopEnterprise is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation, either version 3 of the License, or
 //   (at your option) any later version.
 //
-//   iTopMobile is distributed in the hope that it will be useful,
+//   iTopEnterprise is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
 //
 //   You should have received a copy of the GNU General Public License
-//   along with iTopMobile. If not, see <http://www.gnu.org/licenses/>
+//   along with iTopEnterprise. If not, see <http://www.gnu.org/licenses/>
 
 //   Google-GSON: Copyright 2008-2011 Google Inc.
 //
@@ -55,7 +55,7 @@ import static de.itomig.itopenterprise.ItopConfig.debug;
 public class GetItopJSON {
 
     /**
-     * request data from itop server in json format
+     * request data from itop server in json format - must be called from AsyncTask
      *
      * @param operation core/get etc
      * @param itopClass CI class
@@ -74,7 +74,7 @@ public class GetItopJSON {
 
             String req = url + "/webservices/rest.php?version=1.0";
             if (debug)
-                Log.i(TAG, "req.=" + req);
+                Log.i(TAG, "json request=" + req);
             request.setURI(new URI(req));
 
             ArrayList<NameValuePair> postParameters = new ArrayList<NameValuePair>();
@@ -104,7 +104,7 @@ public class GetItopJSON {
                 // request worked fine, retrieved some data
                 InputStream instream = response.getEntity().getContent();
                 result = convertStreamToString(instream);
-                Log.d(TAG, "result is: " + result);
+                //Log.d(TAG, "result is: " + result);
             } else // some error in http response
             {
                 Log.e(TAG, "Get data - http-ERROR: " + status);
@@ -197,8 +197,7 @@ public class GetItopJSON {
                 Log.d(TAG, "message=" + jsonObject.getString("message"));
 
             } catch (JSONException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                Log.e(TAG,"objects = null in JSON response.");
             }
         } // endif (jsonObject != null)
 

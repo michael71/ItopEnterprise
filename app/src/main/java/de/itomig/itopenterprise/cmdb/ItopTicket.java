@@ -1,19 +1,19 @@
 // Copyright (C) 2011-2013 ITOMIG GmbH
 //
-//   This file is part of iTopMobile.
+//   This file is part of iTopEnterprise.
 //
-//   iTopMobile is free software; you can redistribute it and/or modify	
+//   iTopEnterprise is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation, either version 3 of the License, or
 //   (at your option) any later version.
 //
-//   iTopMobile is distributed in the hope that it will be useful,
+//   iTopEnterprise is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
 //
 //   You should have received a copy of the GNU General Public License
-//   along with iTopMobile. If not, see <http://www.gnu.org/licenses/>
+//   along with iTopEnterprise. If not, see <http://www.gnu.org/licenses/>
 
 package de.itomig.itopenterprise.cmdb;
 
@@ -37,7 +37,7 @@ import static de.itomig.itopenterprise.ItopConfig.debug;
  * Class for holding Itop Tickets.
  */
 
-public class ItopTicket implements Serializable {
+public class ItopTicket extends CMDBObject implements Serializable {
     // Serializable is needed to "hook it up" on an intent with
     private static final long serialVersionUID = -5998434779602343501L;
     private String type;
@@ -50,39 +50,57 @@ public class ItopTicket implements Serializable {
     // 'Class:UserRequest/Attribute:priority/Value:3' => 'medium',
     // 'Class:UserRequest/Attribute:priority/Value:4' => 'low',
 
-    private int callerID;
-    private int agentID;
+    private int caller_id;
+    private int agent_id;
 
 
-    private String startDate;    // im ITOP (SQL Format gespeichert, bei der Ausgabe umgewandelt)
-    private String ttoEscalationDate = "";
+    private String start_date;    // im ITOP (SQL Format gespeichert, bei der Ausgabe umgewandelt)
+    private String tto_escalation_deadline = "";
     private String status = "";
-    private String lastUpdate = "";
+    private String last_update = "";
 
     private String description;
-    private String ticketLog;
+    private String public_log;
+
+    public ItopTicket(int id) {
+        super(id);
+        type = "UserRequest";
+        ref = "";
+        title = "no title";
+        priority = 3;
+        description = "-";
+        caller_id = INVALID_ID;
+        agent_id = INVALID_ID;
+        tto_escalation_deadline = "";
+        start_date = "";
+        last_update = "";
+        public_log = "";
+    }
 
     public ItopTicket(String t, String r, String ti, String p, String d) {
+        super(1);
         // ref,title,priority,description);
         type = t;
         ref = r;
         title = ti;
         priority = Integer.parseInt(p);
         description = d;
-        callerID = INVALID_ID;
-        agentID = INVALID_ID;
-        ttoEscalationDate = "";
-        startDate = "";
-        lastUpdate = "";
-        ticketLog = "";
+        caller_id = INVALID_ID;
+        agent_id = INVALID_ID;
+        tto_escalation_deadline = "";
+        start_date = "";
+        last_update = "";
+        public_log = "";
     }
 
 
     public ItopTicket(String t) {
+        super(1);
         this.type = t;
     }
 
     public ItopTicket(String error, String text) {
+        super(1);
         this.type = error;
         this.title = text;
     }
@@ -106,12 +124,12 @@ public class ItopTicket implements Serializable {
 
     }
 
-    public String getTicketLog() {
-        return ticketLog;
+    public String getPublic_log() {
+        return public_log;
     }
 
-    public void setTicketLog(String ticketLog) {
-        this.ticketLog = ticketLog;
+    public void setPublic_log(String public_log) {
+        this.public_log = public_log;
     }
 
     public String getStatus() {
@@ -122,13 +140,13 @@ public class ItopTicket implements Serializable {
         this.status = status;
     }
 
-    public String getLastUpdate() {
+    public String getLast_update() {
         // format for output
-        return germanDate(lastUpdate);
+        return germanDate(last_update);
     }
 
-    public void setLastUpdate(String lastUpdate) {
-        this.lastUpdate = lastUpdate;
+    public void setLast_update(String last_update) {
+        this.last_update = last_update;
     }
 
     public String getType() {
@@ -143,36 +161,36 @@ public class ItopTicket implements Serializable {
         return (type.contains(ERROR));
     }
 
-    public String getStartDate() {
+    public String getStart_date() {
         // format for output
-        return germanDate(startDate);
+        return germanDate(start_date);
     }
 
-    public void setStartDate(String s) {
-        this.startDate = s;
+    public void setStart_date(String s) {
+        this.start_date = s;
     }
 
-    public int getCallerID() {
-        return callerID;
+    public int getCaller_id() {
+        return caller_id;
     }
 
-    public void setCallerID(String callerID) {
+    public void setCaller_id(String caller_id) {
         try {
-            this.callerID = Integer.parseInt(callerID);
+            this.caller_id = Integer.parseInt(caller_id);
         } catch (NumberFormatException e) {
-            this.callerID = INVALID_ID;
+            this.caller_id = INVALID_ID;
         }
     }
 
-    public int getAgentID() {
-        return agentID;
+    public int getAgent_id() {
+        return agent_id;
     }
 
-    public void setAgentID(String agentID) {
+    public void setAgent_id(String agent_id) {
         try {
-            this.agentID = Integer.parseInt(agentID);
+            this.agent_id = Integer.parseInt(agent_id);
         } catch (NumberFormatException e) {
-            this.agentID = INVALID_ID;
+            this.agent_id = INVALID_ID;
         }
     }
 
@@ -197,12 +215,12 @@ public class ItopTicket implements Serializable {
         if (title.length() != 0) sb.append(" - ");  // see above.
         sb.append(title);
         sb.append("\nCaller: ");
-        sb.append(callerID);
+        sb.append(caller_id);
         sb.append("\n");
-        sb.append(startDate);
-        if (ttoEscalationDate != null) {
+        sb.append(start_date);
+        if (tto_escalation_deadline != null) {
             sb.append("\nTTO-Escal: ");
-            sb.append(ttoEscalationDate);
+            sb.append(tto_escalation_deadline);
         }
         sb.append("\n");
         sb.append(description);
@@ -262,26 +280,26 @@ public class ItopTicket implements Serializable {
         this.ref = ref;
     }
 
-    public String getTtoEscalationDate() {
-        // check if there is a ttoEscalationDate Value
-        if (ttoEscalationDate.length() < 19) return ("");
+    public String getTto_escalation_deadline() {
+        // check if there is a tto_escalation_deadline Value
+        if (tto_escalation_deadline.length() < 19) return ("");
 
-        return germanDate(ttoEscalationDate);
+        return germanDate(tto_escalation_deadline);
     }
 
-    public void setTtoEscalationDate(String ttoEscalationDate) {
-        this.ttoEscalationDate = ttoEscalationDate;
+    public void setTto_escalation_deadline(String tto_escalation_deadline) {
+        this.tto_escalation_deadline = tto_escalation_deadline;
     }
 
     public Boolean isTtoEscalated() {
-        // check if there is a ttoEscalationDate Value
-        if (ttoEscalationDate.length() < 19) return false;
+        // check if there is a tto_escalation_deadline Value
+        if (tto_escalation_deadline.length() < 19) return false;
 
         // depends on correct itop date format
         Calendar currentDate = Calendar.getInstance();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateNow = formatter.format(currentDate.getTime());
-        return (ttoEscalationDate.compareTo(dateNow) < 0);
+        return (tto_escalation_deadline.compareTo(dateNow) < 0);
     }
 
     public int prioImageResource() {
@@ -310,11 +328,11 @@ public class ItopTicket implements Serializable {
     }
 
     public String getOQLStartDate() {
-        return startDate;
+        return start_date;
     }
 
     public String getOQLLastUpdate() {
-        return lastUpdate;
+        return last_update;
     }
 
 }

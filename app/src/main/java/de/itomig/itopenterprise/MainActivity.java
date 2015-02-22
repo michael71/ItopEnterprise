@@ -1,19 +1,19 @@
 // Copyright (C) 2011-2013 ITOMIG GmbH
 //
-//   This file is part of iTopMobile.
+//   This file is part of iTopEnterprise.
 //
-//   iTopMobile is free software; you can redistribute it and/or modify	
+//   iTopEnterprise is free software; you can redistribute it and/or modify
 //   it under the terms of the GNU General Public License as published by
 //   the Free Software Foundation, either version 3 of the License, or
 //   (at your option) any later version.
 //
-//   iTopMobile is distributed in the hope that it will be useful,
+//   iTopEnterprise is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
 //
 //   You should have received a copy of the GNU General Public License
-//   along with iTopMobile. If not, see <http://www.gnu.org/licenses/>
+//   along with iTopEnterprise. If not, see <http://www.gnu.org/licenses/>
 
 package de.itomig.itopenterprise;
 
@@ -43,7 +43,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import de.itomig.itopenterprise.cmdb.InternalTask;
 import de.itomig.itopenterprise.cmdb.ItopTicket;
@@ -62,6 +61,7 @@ import static de.itomig.itopenterprise.ItopConfig.tickets;
 public class MainActivity extends Activity {
 
     protected String expression;
+    protected String[] serverExpression = new String[4];
 
     Comparator<ItopTicket> comparator;
     Comparator<InternalTask> comperatorTask = new Comparator<InternalTask>() {
@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
     private Handler mTimer = new Handler(); // used for all timer based actions
     private boolean taskRequestRunningFlag = false;
     private boolean ticketRequestRunningFlag = false;
-    private ListView lv;
+    private ListView itemListView;
     private TextView emptyView;
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -115,10 +115,10 @@ public class MainActivity extends Activity {
 
         initPrioStrings();
 
-        lv = (ListView) findViewById(R.id.listview01);
+        itemListView = (ListView) findViewById(R.id.listview01);
 
-        lv.setClickable(true);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        itemListView.setClickable(true);
+        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> arg0, View arg1,
                                     int position, long arg3) {
@@ -145,10 +145,10 @@ public class MainActivity extends Activity {
             }
         });
         emptyView = (TextView) findViewById(R.id.empty);
-        lv.setEmptyView(emptyView);
+        itemListView.setEmptyView(emptyView);
 
         if (tickets != null)
-            lv.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
+            itemListView.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
         String svcName = Context.NOTIFICATION_SERVICE;
         notificationManager = (NotificationManager) getSystemService(svcName);
 
@@ -168,16 +168,16 @@ public class MainActivity extends Activity {
         updateComparator();
         if (this.getLocalClassName().contains("Task")) {
             if (tasks != null) {
-                lv.setAdapter(new de.itomig.itopenterprise.TaskAdapter(MainActivity.this, tasks));
-                ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+                itemListView.setAdapter(new de.itomig.itopenterprise.TaskAdapter(MainActivity.this, tasks));
+                ((BaseAdapter) itemListView.getAdapter()).notifyDataSetChanged();
             }
 
         } else {
             // use data which are persistent in ItopApplication if stored by
             // same activity
             if (tickets != null) {
-                lv.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
-                ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+                itemListView.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
+                ((BaseAdapter) itemListView.getAdapter()).notifyDataSetChanged();
             }
         }
         startTimer();
@@ -197,11 +197,12 @@ public class MainActivity extends Activity {
     }
 
     private void update() {
-
+        if (debug) Log.d(TAG,"MainActivity - update()");
         getParent().setProgressBarIndeterminateVisibility(true);
         getParent().setProgressBarVisibility(true);
 
         if (this.getLocalClassName().contains("Task")) {
+            if (debug) Log.d(TAG,"MainActivity - Task");
             if (!taskRequestRunningFlag) {
                 taskRequestRunningFlag = true;
                 if (debug)
@@ -209,20 +210,36 @@ public class MainActivity extends Activity {
 
                 if (DataConnection.isConnected(itopAppContext)) {
                     RequestJSONDataFromServerTask reqServer = new RequestJSONDataFromServerTask();
-                    reqServer.execute("");
+                    reqServer.execute(serverExpression);
                 } else {
                     toast("no dataconnection, cannot reach itop server.");
                 }
             }
 
-        } else {
+        } else if (this.getLocalClassName().contains("Helpdesk")) {
+            if (debug) Log.d(TAG,"MainActivity - Helpdesk");
             if (!ticketRequestRunningFlag) {
                 ticketRequestRunningFlag = true;
                 if (debug)
-                    Log.i(TAG, this.getLocalClassName() + " - update() Tickets");
-                RequestTicketsFromServerTask reqServer = new RequestTicketsFromServerTask();
-                reqServer.execute(expression);
+                    Log.i(TAG, this.getLocalClassName() + " - update() UserRequests");
+
+                if (DataConnection.isConnected(itopAppContext)) {
+                    RequestJSONDataFromServerTask reqServer = new RequestJSONDataFromServerTask();
+                    reqServer.execute(serverExpression);
+                } else {
+                    toast("no dataconnection, cannot reach itop server.");
+                }
             }
+        } else  {  // old xml request
+            if (debug) Log.d(TAG,"MainActivity - OLD XML");
+                if (!ticketRequestRunningFlag) {
+                    ticketRequestRunningFlag = true;
+                    if (debug)
+                        Log.i(TAG, this.getLocalClassName() + " - update() Tickets");
+                    RequestTicketsFromServerTask reqServer = new RequestTicketsFromServerTask();
+                    reqServer.execute(expression);
+                }
+
         }
 
     }
@@ -284,6 +301,7 @@ public class MainActivity extends Activity {
 
         @Override
         protected ArrayList<ItopTicket> doInBackground(String... expr) {
+
             ArrayList<ItopTicket> reqTickets = new ArrayList<ItopTicket>();
             try {
                 reqTickets = GetItopData.getTicketsFromItopServer(expr[0]);
@@ -311,8 +329,8 @@ public class MainActivity extends Activity {
             // sort by priority
             Collections.sort(tickets, comparator);
 
-            lv.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
-            ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
+            itemListView.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
+            ((BaseAdapter) itemListView.getAdapter()).notifyDataSetChanged();
 
             if (debug)
                 Log.i(TAG, "RequestTicketsFromServerTask - postexecute");
@@ -328,7 +346,8 @@ public class MainActivity extends Activity {
      * @author mblank
      */
     protected class RequestJSONDataFromServerTask extends
-            AsyncTask<String, Void, String> {
+            AsyncTask<String[], Void, String> {
+        String[] request;
 
         @Override
         protected void onPreExecute() {
@@ -337,16 +356,17 @@ public class MainActivity extends Activity {
         }
 
         @Override
-        protected String doInBackground(String... expr) {
+        protected String doInBackground(String[]... expr) {
+            request = expr[0];
             String resp = "";
             try {
+                if (debug) Log.d(TAG, "CI-Class=" + request[1]);
+                resp = GetItopJSON.postJsonToItopServer(request[0], request[1], request[2], request[3]);
 
-                resp = GetItopJSON
-                        .postJsonToItopServer(
-                                "core/get",
+                /*"core/get",
                                 "InternalTask",
                                 "SELECT InternalTask WHERE person_id = :current_contact_id",
-                                "name, priority, person_name, person_id, description,remarks,person_id_friendlyname"); // expr[0]
+                                "name, priority, person_name, person_id, description,remarks,person_id_friendlyname"); // expr[0] */
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -357,7 +377,8 @@ public class MainActivity extends Activity {
 
         @Override
         protected void onPostExecute(String resp) {
-            taskRequestRunningFlag = false;
+
+            if (debug) Log.d(TAG, "results for CI-Class=" + request[1]);
             getParent().setProgressBarIndeterminateVisibility(false);
             getParent().setProgressBarVisibility(false);
 
@@ -375,7 +396,7 @@ public class MainActivity extends Activity {
                 return;
 
             }
-
+            if (debug) Log.d(TAG, "onPostExecute CI-Class=" + request[1]);
             // check for error message in JSON string
             String message = GetItopJSON.getMessage(resp);
             if (message.length() > 0) {
@@ -389,23 +410,48 @@ public class MainActivity extends Activity {
 
             if (debug)
                 Log.d(TAG, "json response - postexecute" + resp);
+            Type type;
+            if (request[1].equals("InternalTask")) {
+                taskRequestRunningFlag = false;
+                type = new TypeToken<InternalTask>() {
+                }.getType();
+                tasks = GetItopJSON.getArrayFromJson(resp, type);
 
-            Type type = new TypeToken<InternalTask>() {
-            }.getType();
-            tasks = GetItopJSON.getArrayFromJson(resp, type);
+                if (tasks != null) {
+                    Log.d(TAG, "#tasks= " + tasks.size());
 
-            if (tasks != null) {
-                Log.d(TAG, "#tasks= " + tasks.size());
+                }
 
+                // sort by priority
+                Collections.sort(tasks, comperatorTask);
+
+                itemListView.setAdapter(new TaskAdapter(MainActivity.this, tasks));
+                ((BaseAdapter) itemListView.getAdapter()).notifyDataSetChanged();
+                emptyView.setText(getString(R.string.no_tasks));
+
+            } else if ( request[1].equals("UserRequest") || request[1].equals("Incident") ) {
+                ticketRequestRunningFlag = false;
+                type = new TypeToken<ItopTicket>() {
+                }.getType();
+                tickets = GetItopJSON.getArrayFromJson(resp, type);
+
+                for (ItopTicket t : tickets) {
+                    t.setType("UserRequest");
+                    t.setPublic_log("-");
+                }
+                // sort by priority
+                Collections.sort(tickets, comparator);
+
+                itemListView.setAdapter(new TicketAdapter(MainActivity.this, tickets));
+                ((BaseAdapter) itemListView.getAdapter()).notifyDataSetChanged();
+
+                if (debug)
+                    Log.i(TAG, "RequestTicketsFromServerTask - postexecute");
+                emptyView.setText(getString(R.string.no_tickets));
+            } else {
+                Log.e(TAG, "CI Class not supported by RequestJSONDataFromServerTask");
             }
 
-            // sort by priority
-            Collections.sort(tasks, comperatorTask);
-
-            lv.setAdapter(new TaskAdapter(MainActivity.this, tasks));
-            ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
-            emptyView.setText(getString(R.string.no_tasks));
         }
     }
-
 }
