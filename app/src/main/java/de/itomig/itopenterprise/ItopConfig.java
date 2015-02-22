@@ -41,9 +41,8 @@ import de.itomig.itopenterprise.cmdb.Person;
 public class ItopConfig extends Application {
     // DEBUG must be false for all versions released to android market
     // also remove    android:debuggable="true"  in the AndroidManifest.xml
-    public static boolean debug = false;
+    public static boolean debug = true;
 
-    public static final int HTTP_STATUS_OK = 200;
     // corporate version with URL check and update from itomig.de
     // or Android market version with update from market
     public static final String KEY_URL = "urlPref";
@@ -53,6 +52,7 @@ public class ItopConfig extends Application {
     public static final String KEY_ITIL_TICKETS = "itilTicketsPref";
     public static final String KEY_TASKS = "taskPref";
     public static final String KEY_NOTIFY = "notifyPref";
+    public static final String KEY_SORTBYPRIO = "sortByPrioPref";
     public static final String KEY_QUERY_NOTIFY = "queryNotifyPref";
     public static final String STATUS_ASSIGNED = "assigned";   // must match to iTop installation
     public static final String ERROR = "error";
@@ -77,14 +77,8 @@ public class ItopConfig extends Application {
 
     // used in TicketActivity
     public static ArrayList<ItopTicket> tickets = new ArrayList<ItopTicket>();
-    public static ArrayList<String> ticketsText = new ArrayList<String>();
-
 
     public static List<InternalTask> tasks = new ArrayList<InternalTask>();
-    public static ArrayList<String> tasksText = new ArrayList<String>();
-
-    public static ArrayList<Organization> orgs = new ArrayList<Organization>();
-    public static ArrayList<Person> persons = new ArrayList<Person>();
 
     public static ConcurrentHashMap<Integer, Person> personLookup = new ConcurrentHashMap<Integer, Person>();
     public static ConcurrentHashMap<Integer, String> organizationLookup = new ConcurrentHashMap<Integer, String>();
@@ -111,11 +105,6 @@ public class ItopConfig extends Application {
             de.itomig.itopenterprise.PersonAndOrgsLookup pl = new de.itomig.itopenterprise.PersonAndOrgsLookup();
             pl.update();
         }
-    }
-
-    public static Context getItopAppContext() {
-        // for later use in some static functions
-        return itopAppContext;
     }
 
     public static int getRefreshRateSeconds() {
@@ -184,12 +173,6 @@ public class ItopConfig extends Application {
 
     }
 
-    public static boolean isEnabledlTasks() {
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itopAppContext);
-        return prefs.getBoolean(KEY_TASKS, true);
-
-    }
 
     public static int getNumericalPriority(String prio) {
         // the prio string is language dependent!!

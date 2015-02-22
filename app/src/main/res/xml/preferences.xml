@@ -45,4 +45,12 @@
             android:summary="..."
             android:title="@string/notify_when" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/gui">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sortByPrioPref"
+            android:summaryOff="@string/sort_prio_off"
+            android:summaryOn="@string/sort_prio_on"
+            android:title="@string/sort_by_prio" />
+    </PreferenceCategory>
 </PreferenceScreen>

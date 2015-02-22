@@ -58,10 +58,15 @@
     <string name="tasks_disabled">不,隐藏所有任务.</string>
     <string name="tasks_enabled">是,显示所有任务.</string>
     <string name="add_task">创建新的任务.</string>
-    <string name="copyright">Copyright 2011-2015 - ITOMIG GmbH\\nhttp://www.itomig.de</string>
+    <string name="copyright">Copyright 2011-2015 - ITOMIG GmbH</string>
+    <string name="copyright2">http://www.itomig.de</string>
     <string name="whatisitopandroid">该iTop安卓客户端可以查询配置项、人员等信息。 同时会显示服务管理和事件管理中相关工单的内容、状态等详细信息。</string>
     <string name="whatisitop">iTop是一个基于Web的、开源的、遵循ITIL标准的IT服务管理工具。它支持事件管理、问题管理、自助服务、配置管理、变更管理等常用流程。获取更多信息请访问www.itomig.de/itop和www.combodo.com.</string>
     <string name="about_app_title">ITSM &amp; CMDB安卓客户端应用</string>
     <string name="itopstat">iTop被下载超过75000次.</string>
+    <string name="sort_by_prio">Sort by Priority?</string>
+    <string name="sort_prio_off">no, sort by Ticket Ref.</string>
+    <string name="sort_prio_on">yes, sort by Priority.</string>
+    <string name="gui">User Interface</string>
 
 </resources>

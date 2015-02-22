@@ -16,6 +16,7 @@
 //   along with iTopMobile. If not, see <http://www.gnu.org/licenses/>
 package de.itomig.itopenterprise;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
@@ -23,6 +24,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +32,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import de.itomig.itopenterprise.cmdb.ItopTicket;
@@ -38,11 +42,13 @@ import de.itomig.itopenterprise.cmdb.Person;
 import static de.itomig.itopenterprise.ItopConfig.INVALID_ID;
 import static de.itomig.itopenterprise.ItopConfig.TAG;
 import static de.itomig.itopenterprise.ItopConfig.debug;
+
 import static de.itomig.itopenterprise.ItopConfig.personLookup;
+
 
 public class TicketDetailActivity extends Activity {
     // Task
-    NotificationManager notificationManager;
+    //NotificationManager notificationManager;
     private TextView tvRef, tvTitle, tvDesc, tvDate, tvStatus, tvLastUpdate;
     private TextView tvTtoEscal, tvLog, tvCaller, tvAgent;
     private ImageView priorityIcon, alarmIcon, callCaller, callAgent;
@@ -190,36 +196,60 @@ public class TicketDetailActivity extends Activity {
 
     private void dispCallerAndAgent() {
         // determine friendly name of both caller and agent
-
+        if (debug) Log.d(TAG,"display caller and agent");
+        boolean retrieve = false;
         Person p = personLookup.get(t.getCallerID());
 
         if (p != null) {
-            if (p.getPhonenumber().length() > 7) {
-                tvCaller.setText("caller: " + p.getFriendlyname());
-                callCaller.setImageResource(R.drawable.call_contact);
-                callerPhone = p.getPhonenumber();
-            } else {
-                tvCaller.setText("caller: " + p.getFriendlyname());
-                callerPhone = null;
-                callCaller.setImageResource(R.drawable.call_contact_off);
-            }
+            updateCaller(p);
+        } else {
+            retrieve = true;
         }
 
         p = personLookup.get(t.getAgentID());
         if (p != null) {
-            if (p.getPhonenumber().length() > 7) {
-                tvAgent.setText("agent: " + p.getFriendlyname());
-                callAgent.setImageResource(R.drawable.call_contact);
-                agentPhone = p.getPhonenumber();
-            } else {
-                tvAgent.setText("agent: " + p.getFriendlyname());
-                callAgent.setImageResource(R.drawable.call_contact_off);
-                agentPhone = null;
-            }
+            updateAgent(p);
+        } else {
+            retrieve = true;
         }
 
+        if (retrieve) {
+            RefreshPersonsFromServerTask reqPersons = new RefreshPersonsFromServerTask();
+            String expr = "SELECT Person WHERE id = " + t.getAgentID()+ " OR id = "+ t.getCallerID() ;
+            if (debug) Log.d(TAG,"refresh persons = "+expr);
+            try {
+                reqPersons.execute(URLEncoder.encode(expr, "UTF-8"));
+            } catch (UnsupportedEncodingException e) {
+                Log.e(TAG,e.getMessage());
+            }
+        }
     }
 
+    private void updateCaller(Person p) {
+        if (p == null) return;
+        if (p.getPhonenumber().length() > 3) {
+            tvCaller.setText("caller: " + p.getFriendlyname());
+            callCaller.setImageResource(R.drawable.call_contact);
+            callerPhone = p.getPhonenumber();
+        } else {
+            tvCaller.setText("caller: " + p.getFriendlyname());
+            callerPhone = null;
+            callCaller.setImageResource(R.drawable.call_contact_off);
+        }
+    }
+
+    private void updateAgent(Person p) {
+        if (p == null) return;
+        if (p.getPhonenumber().length() > 3) {
+            tvAgent.setText("agent: " + p.getFriendlyname());
+            callAgent.setImageResource(R.drawable.call_contact);
+            agentPhone = p.getPhonenumber();
+        } else {
+            tvAgent.setText("agent: " + p.getFriendlyname());
+            callAgent.setImageResource(R.drawable.call_contact_off);
+            agentPhone = null;
+        }
+    }
     public void toast(String string) {
         Toast.makeText(this, string, Toast.LENGTH_LONG).show();
     }
@@ -239,6 +269,54 @@ public class TicketDetailActivity extends Activity {
         } catch (ActivityNotFoundException activityException) {
             Log.e(TAG, "dialing - Call to " + num + " failed. ",
                     activityException);
+        }
+    }
+
+    class RefreshPersonsFromServerTask extends
+            AsyncTask<String, Void, ArrayList<Person>> {
+
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected ArrayList<Person> doInBackground(String... expr) {
+            ArrayList<Person> persons = new ArrayList<Person>();
+            if (debug) Log.d(TAG,"RefreshPersonsFromServer="+expr[0]);
+            try {
+                persons = GetItopData.getPersonsFromItopServer(expr[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return persons;
+        }
+
+        @SuppressLint("UseSparseArrays") // sparse arrays cannot be iterated.
+        @Override
+        protected synchronized void onPostExecute(ArrayList<Person> persons) {
+
+            if (debug)
+                Log.i(TAG,
+                        "onPostExecute - RefreshPersonsFromServer");
+
+            if (persons == null) {
+                Log.e(TAG, "empty response when req. Person List. - RefreshPersonsFromServer");
+                return;
+            }
+
+
+            for (Person p : persons) {
+                personLookup.put(p.getId(), p);
+                if (debug)
+                    Log.d(TAG, "PersonRefresh - setting person id=" + p.getId() + " to name=" + p.getFriendlyname() + " org_id=" + p.getOrg_id());
+            }
+            Person p = personLookup.get(t.getCallerID());
+            updateCaller(p);
+
+            p = personLookup.get(t.getAgentID());
+            updateAgent(p);
+
         }
     }
 

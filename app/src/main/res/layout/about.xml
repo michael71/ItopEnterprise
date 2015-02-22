@@ -106,5 +106,17 @@
             android:text="@string/copyright"
             android:textColor="#000"
             android:textSize="14sp" />
+        <TextView
+            android:id="@+id/copyright2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:background="#DDD"
+            android:gravity="center_horizontal"
+            android:paddingBottom="8sp"
+            android:paddingTop="4sp"
+            android:text="@string/copyright2"
+            android:textColor="#000"
+            android:textSize="14sp" />
     </LinearLayout>
 </ScrollView>

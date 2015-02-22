@@ -23,10 +23,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,6 +49,7 @@ import de.itomig.itopenterprise.cmdb.InternalTask;
 import de.itomig.itopenterprise.cmdb.ItopTicket;
 
 import static de.itomig.itopenterprise.ItopConfig.ERROR;
+import static de.itomig.itopenterprise.ItopConfig.KEY_SORTBYPRIO;
 import static de.itomig.itopenterprise.ItopConfig.NOTIFICATION_ID_INCIDENT;
 import static de.itomig.itopenterprise.ItopConfig.TAG;
 import static de.itomig.itopenterprise.ItopConfig.debug;
@@ -58,26 +61,9 @@ import static de.itomig.itopenterprise.ItopConfig.tickets;
 
 public class MainActivity extends Activity {
 
-    protected int timerTick = 0;
     protected String expression;
-    List<ItopTicket> listOfTickets;
-    de.itomig.itopenterprise.TicketAdapter adapter;
-    List<InternalTask> listOfTasks;
-    de.itomig.itopenterprise.TaskAdapter taskAdapter;
-    Comparator<ItopTicket> comperator = new Comparator<ItopTicket>() {
-        // compare priority first, then compare "lastUpdate" date of ticket
-        public int compare(ItopTicket object1, ItopTicket object2) {
-            if (object1.getPriority() == object2.getPriority()) {
-                return (-object1.getOQLLastUpdate().compareTo(
-                        object2.getOQLLastUpdate()));
-            }
-            if (object1.getPriority() > object2.getPriority()) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
-    };
+
+    Comparator<ItopTicket> comparator;
     Comparator<InternalTask> comperatorTask = new Comparator<InternalTask>() {
         // compare priority first, then compare "lastUpdate" date of ticket
         public int compare(InternalTask object1, InternalTask object2) {
@@ -179,7 +165,7 @@ public class MainActivity extends Activity {
             Log.i(TAG,
                     this.getLocalClassName() + " lookup(20)="
                             + personLookup.get(20));
-
+        updateComparator();
         if (this.getLocalClassName().contains("Task")) {
             if (tasks != null) {
                 lv.setAdapter(new de.itomig.itopenterprise.TaskAdapter(MainActivity.this, tasks));
@@ -261,6 +247,33 @@ public class MainActivity extends Activity {
         prioStrings = res.getStringArray(R.array.priority);
     }
 
+    private void updateComparator() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itopAppContext);
+        if (prefs.getBoolean(KEY_SORTBYPRIO, true)) {
+            comparator = new Comparator<ItopTicket>() {
+                // compare priority first, then compare "lastUpdate" date of ticket
+                public int compare(ItopTicket object1, ItopTicket object2) {
+                    if (object1.getPriority() == object2.getPriority()) {
+                        return (-object1.getOQLLastUpdate().compareTo(
+                                object2.getOQLLastUpdate()));
+                    }
+                    if (object1.getPriority() > object2.getPriority()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                }
+            };
+        } else {
+            comparator = new Comparator<ItopTicket>() {
+                // compare priority first, then compare "lastUpdate" date of ticket
+                public int compare(ItopTicket object1, ItopTicket object2) {
+                    return object2.getRef().substring(2).compareTo(object1.getRef().substring(2));
+                }
+            };
+        }
+    }
+
     protected class RequestTicketsFromServerTask extends
             AsyncTask<String, Void, ArrayList<ItopTicket>> {
 
@@ -296,7 +309,7 @@ public class MainActivity extends Activity {
             tickets = new ArrayList<ItopTicket>(resTickets);
 
             // sort by priority
-            Collections.sort(tickets, comperator);
+            Collections.sort(tickets, comparator);
 
             lv.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
             ((BaseAdapter) lv.getAdapter()).notifyDataSetChanged();
@@ -305,6 +318,7 @@ public class MainActivity extends Activity {
                 Log.i(TAG, "RequestTicketsFromServerTask - postexecute");
             emptyView.setText(getString(R.string.no_tickets));
         }
+
 
     }
 
