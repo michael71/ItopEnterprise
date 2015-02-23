@@ -127,9 +127,9 @@ public class TaskDetailActivity extends Activity {
 
         Person p = personLookup.get(t.person_id);
         if (p != null) {
-            if (p.getPhonenumber().length() > 7) {
+            if (p.getPhone().length() > 7) {
                 callCaller.setImageResource(R.drawable.call_contact);
-                callerPhone = p.getPhonenumber();
+                callerPhone = p.getPhone();
             } else {
                 callerPhone = null;
                 callCaller.setImageResource(R.drawable.call_contact_off);

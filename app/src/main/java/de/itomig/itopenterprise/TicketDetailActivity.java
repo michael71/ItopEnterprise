@@ -31,10 +31,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+import de.itomig.itopenterprise.cmdb.InternalTask;
 import de.itomig.itopenterprise.cmdb.ItopTicket;
 import de.itomig.itopenterprise.cmdb.Person;
 
@@ -43,6 +47,7 @@ import static de.itomig.itopenterprise.ItopConfig.TAG;
 import static de.itomig.itopenterprise.ItopConfig.debug;
 
 import static de.itomig.itopenterprise.ItopConfig.personLookup;
+import static de.itomig.itopenterprise.ItopConfig.tasks;
 
 
 public class TicketDetailActivity extends Activity {
@@ -216,20 +221,18 @@ public class TicketDetailActivity extends Activity {
             RefreshPersonsFromServerTask reqPersons = new RefreshPersonsFromServerTask();
             String expr = "SELECT Person WHERE id = " + t.getAgent_id()+ " OR id = "+ t.getCaller_id() ;
             if (debug) Log.d(TAG,"refresh persons = "+expr);
-            try {
-                reqPersons.execute(URLEncoder.encode(expr, "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                Log.e(TAG,e.getMessage());
-            }
+            reqPersons.execute(expr);
+
         }
     }
 
     private void updateCaller(Person p) {
         if (p == null) return;
-        if (p.getPhonenumber().length() > 3) {
+
+        if (p.getPhone().length() > 3) {
             tvCaller.setText("caller: " + p.getFriendlyname());
             callCaller.setImageResource(R.drawable.call_contact);
-            callerPhone = p.getPhonenumber();
+            callerPhone = p.getPhone();
         } else {
             tvCaller.setText("caller: " + p.getFriendlyname());
             callerPhone = null;
@@ -239,10 +242,10 @@ public class TicketDetailActivity extends Activity {
 
     private void updateAgent(Person p) {
         if (p == null) return;
-        if (p.getPhonenumber().length() > 3) {
+        if (p.getPhone().length() > 3) {
             tvAgent.setText("agent: " + p.getFriendlyname());
             callAgent.setImageResource(R.drawable.call_contact);
-            agentPhone = p.getPhonenumber();
+            agentPhone = p.getPhone();
         } else {
             tvAgent.setText("agent: " + p.getFriendlyname());
             callAgent.setImageResource(R.drawable.call_contact_off);
@@ -272,7 +275,7 @@ public class TicketDetailActivity extends Activity {
     }
 
     class RefreshPersonsFromServerTask extends
-            AsyncTask<String, Void, ArrayList<Person>> {
+            AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -280,32 +283,36 @@ public class TicketDetailActivity extends Activity {
         }
 
         @Override
-        protected ArrayList<Person> doInBackground(String... expr) {
-            ArrayList<Person> persons = new ArrayList<Person>();
+        protected String doInBackground(String... expr) {
+            String resp="";
             if (debug) Log.d(TAG,"RefreshPersonsFromServer="+expr[0]);
             try {
-                persons = GetItopData.getPersonsFromItopServer(expr[0]);
+                resp = GetItopJSON.postJsonToItopServer ("core/get","Person",expr[0],
+                   "name, friendlyname, phone, org_id");
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return persons;
+            return resp;
         }
 
         @SuppressLint("UseSparseArrays") // sparse arrays cannot be iterated.
         @Override
-        protected synchronized void onPostExecute(ArrayList<Person> persons) {
-
+        protected synchronized void onPostExecute(String resp) {
+            ArrayList<Person> ps;
+            Type type = new TypeToken<Person>() {
+            }.getType();
+            ps = GetItopJSON.getArrayFromJson(resp, type, getApplicationContext());
             if (debug)
                 Log.i(TAG,
                         "onPostExecute - RefreshPersonsFromServer");
 
-            if (persons == null) {
+            if (ps == null) {
                 Log.e(TAG, "empty response when req. Person List. - RefreshPersonsFromServer");
                 return;
             }
 
-
-            for (Person p : persons) {
+            for (Person p : ps) {
                 personLookup.put(p.getId(), p);
                 if (debug)
                     Log.d(TAG, "PersonRefresh - setting person id=" + p.getId() + " to name=" + p.getFriendlyname() + " org_id=" + p.getOrg_id());

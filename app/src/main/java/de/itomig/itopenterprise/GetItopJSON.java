@@ -25,10 +25,13 @@
 
 package de.itomig.itopenterprise;
 
+import android.content.Context;
 import android.net.http.AndroidHttpClient;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -48,6 +51,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import de.itomig.itopenterprise.cmdb.CMDBObject;
+import de.itomig.itopenterprise.cmdb.ItopTicket;
+import de.itomig.itopenterprise.cmdb.ItopTicketDeserializer;
 
 import static de.itomig.itopenterprise.ItopConfig.TAG;
 import static de.itomig.itopenterprise.ItopConfig.debug;
@@ -108,13 +113,13 @@ public class GetItopJSON {
             } else // some error in http response
             {
                 Log.e(TAG, "Get data - http-ERROR: " + status);
-                result = "ERROR: http status " + status;
+                result = "SERVER_ERROR: http status " + status;
             }
 
         } catch (Exception e) {
             // Toast does not work in background task
             Log.e(TAG, "Get data -  " + e.toString());
-            result = "ERROR: " + e.toString();
+            result = "SERVER_ERROR: " + e.toString();
         } finally {
             client.close(); // needs to be done for androidhttpclient
             if (debug)
@@ -152,8 +157,14 @@ public class GetItopJSON {
         return sb.toString();
     }
 
-    public static <T> ArrayList<T> getArrayFromJson(String json, Type T) {
+    public static <T> ArrayList<T> getArrayFromJson(String json, Type T, Context context) {
         ArrayList<T> list = new ArrayList<T>();
+
+        // check for server Error
+        if ((json.length() >= 12) && json.substring(0,12).contains("SERVER_ERROR")) {
+            Toast.makeText(context, json, Toast.LENGTH_LONG).show();
+            return list;
+        }
         String code = "100"; // json error code, "0" => everything is o.k.
         Log.d(TAG, "getArrayFromJson - Type=" + T.toString());
 
@@ -166,6 +177,7 @@ public class GetItopJSON {
 
         } catch (JSONException e) {
             Log.e(TAG, "error in getArrayFromJSON " + e.getMessage());
+            Toast.makeText(context, "error in getArrayFromJSON " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         if ((jsonObject != null) && (code.trim().equals("0"))) {
@@ -180,17 +192,20 @@ public class GetItopJSON {
                     if (objects.get(key) instanceof JSONObject) {
                         // Log.d(TAG,"obj="+objects.get(key).toString());
                         JSONObject o = (JSONObject) objects.get(key);
+                        int id = o.getInt("key");
+                        Log.d(TAG,"id="+id);
                         JSONObject fields = o.getJSONObject("fields");
-                        Log.d(TAG, "fields=" + fields.toString());
+                        //Log.d(TAG, "fields=" + fields.toString());
+                        final GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.registerTypeAdapter(ItopTicket.class, new ItopTicketDeserializer());
+                        final Gson gson = gsonBuilder.create();
 
-                        Gson gson = new Gson();
-                        String k[] = key.split(":");
-                        int id = Integer.parseInt(k[2]);
-                        T jf = gson.fromJson(fields.toString(), T);
+                        final T jf = gson.fromJson(fields.toString(), T);
                         if (jf instanceof CMDBObject) {
                             ((CMDBObject) jf).id = id;
                         }
                         list.add(jf);
+
                     }
                 }
                 Log.d(TAG, "code=" + jsonObject.getString("code"));

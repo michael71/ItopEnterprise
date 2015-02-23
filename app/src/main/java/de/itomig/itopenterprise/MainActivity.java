@@ -216,12 +216,12 @@ public class MainActivity extends Activity {
                 }
             }
 
-        } else if (this.getLocalClassName().contains("Helpdesk")) {
-            if (debug) Log.d(TAG,"MainActivity - Helpdesk");
+        } else  {
+            if (debug) Log.d(TAG,"MainActivity - UserRequests/Incidents");
             if (!ticketRequestRunningFlag) {
                 ticketRequestRunningFlag = true;
                 if (debug)
-                    Log.i(TAG, this.getLocalClassName() + " - update() UserRequests");
+                    Log.i(TAG, this.getLocalClassName() + " - UserRequests/Incidents");
 
                 if (DataConnection.isConnected(itopAppContext)) {
                     RequestJSONDataFromServerTask reqServer = new RequestJSONDataFromServerTask();
@@ -230,18 +230,7 @@ public class MainActivity extends Activity {
                     toast("no dataconnection, cannot reach itop server.");
                 }
             }
-        } else  {  // old xml request
-            if (debug) Log.d(TAG,"MainActivity - OLD XML");
-                if (!ticketRequestRunningFlag) {
-                    ticketRequestRunningFlag = true;
-                    if (debug)
-                        Log.i(TAG, this.getLocalClassName() + " - update() Tickets");
-                    RequestTicketsFromServerTask reqServer = new RequestTicketsFromServerTask();
-                    reqServer.execute(expression);
-                }
-
         }
-
     }
 
     private void startTimer() {
@@ -415,7 +404,7 @@ public class MainActivity extends Activity {
                 taskRequestRunningFlag = false;
                 type = new TypeToken<InternalTask>() {
                 }.getType();
-                tasks = GetItopJSON.getArrayFromJson(resp, type);
+                tasks = GetItopJSON.getArrayFromJson(resp, type, getApplicationContext());
 
                 if (tasks != null) {
                     Log.d(TAG, "#tasks= " + tasks.size());
@@ -433,11 +422,10 @@ public class MainActivity extends Activity {
                 ticketRequestRunningFlag = false;
                 type = new TypeToken<ItopTicket>() {
                 }.getType();
-                tickets = GetItopJSON.getArrayFromJson(resp, type);
+                tickets = GetItopJSON.getArrayFromJson(resp, type, getApplicationContext());
 
                 for (ItopTicket t : tickets) {
                     t.setType("UserRequest");
-                    t.setPublic_log("-");
                 }
                 // sort by priority
                 Collections.sort(tickets, comparator);

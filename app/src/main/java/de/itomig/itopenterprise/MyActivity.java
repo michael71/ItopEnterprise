@@ -24,18 +24,18 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import static de.itomig.itopenterprise.ItopConfig.TAG;
+import static de.itomig.itopenterprise.ItopConfig.debug;
 
 public class MyActivity extends MainActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String getMyRequests = "SELECT UserRequest AS i WHERE i.agent_id=:current_contact_id " +
-                "AND i.status!='Closed' AND i.status!='Resolved'";
-        try {
-            expression = URLEncoder.encode(getMyRequests, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "MyActivity: " + e.toString());
-        }
+        if (debug) Log.i(TAG, "MyActivity - onCreate");
+
+        serverExpression[0] = "core/get";
+        serverExpression[1] = "UserRequest";
+        serverExpression[2] = "SELECT UserRequest AS i WHERE i.agent_id=:current_contact_id AND i.status!='Closed' AND i.status!='Resolved'";
+        serverExpression[3] = "ref, title, priority, start_date, tto_escalation_deadline, caller_id, agent_id, status, last_update, description, public_log";
     }
 }

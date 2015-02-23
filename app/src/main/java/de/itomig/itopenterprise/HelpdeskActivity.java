@@ -40,7 +40,7 @@ public class HelpdeskActivity extends de.itomig.itopenterprise.MainActivity {
         serverExpression[0] = "core/get";
         serverExpression[1] = "UserRequest";
         serverExpression[2] = "SELECT UserRequest WHERE status!='closed' AND status!='resolved'";
-        serverExpression[3] = "ref, title, priority, start_date, tto_escalation_deadline, caller_id, agent_id, status, last_update, description";  // TODO public log
+        serverExpression[3] = "ref, title, priority, start_date, tto_escalation_deadline, caller_id, agent_id, status, last_update, description, public_log";
 
     }
 }

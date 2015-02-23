@@ -17,17 +17,23 @@
 
 package de.itomig.itopenterprise.cmdb;
 
-public class Person {
-    private int id;
-    private int org_id;
-    private String friendlyname;
-    private String phonenumber;
+import java.io.Serializable;
 
+public class Person extends CMDBObject implements Serializable {
+    private static final long serialVersionUID = -5998434777702343501L;
+    private int org_id=1;
+    private String friendlyname="";
+    private String phone="";
+
+    public Person(int id) {
+        super(id);
+    }
     public Person(int id, String friendlyname, String phone, int org_id) {
-        this.id = id;
+        super(id);
+
         this.org_id = org_id;
         this.friendlyname = friendlyname;
-        this.phonenumber = phone;
+        this.phone = phone;
     }
 
     public int getId() {
@@ -38,7 +44,6 @@ public class Person {
         this.id = id;
     }
 
-
     public int getOrg_id() {
         return org_id;
     }
@@ -48,19 +53,29 @@ public class Person {
     }
 
     public String getFriendlyname() {
-        return friendlyname;
+
+        if (friendlyname !=null) {
+            return friendlyname;
+        } else {
+            return "?";
+        }
     }
 
     public void setFriendlyname(String friendlyname) {
         this.friendlyname = friendlyname;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhone() {
+
+        if (phone != null) {
+            return phone;
+        } else {
+            return "?";
+        }
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 }

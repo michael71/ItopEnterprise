@@ -23,7 +23,10 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import de.itomig.itopenterprise.R;
@@ -60,7 +63,9 @@ public class ItopTicket extends CMDBObject implements Serializable {
     private String last_update = "";
 
     private String description;
-    private String public_log;
+    private ArrayList<PublicLogEntry> public_log = new ArrayList<>();
+
+
 
     public ItopTicket(int id) {
         super(id);
@@ -74,8 +79,7 @@ public class ItopTicket extends CMDBObject implements Serializable {
         tto_escalation_deadline = "";
         start_date = "";
         last_update = "";
-        public_log = "";
-    }
+     }
 
     public ItopTicket(String t, String r, String ti, String p, String d) {
         super(1);
@@ -90,19 +94,34 @@ public class ItopTicket extends CMDBObject implements Serializable {
         tto_escalation_deadline = "";
         start_date = "";
         last_update = "";
-        public_log = "";
+
     }
 
+    public void addPublicLogEntry(PublicLogEntry ple) {
+        public_log.add(ple);
+    }
 
     public ItopTicket(String t) {
         super(1);
         this.type = t;
+        this.public_log.add(new PublicLogEntry());
     }
 
     public ItopTicket(String error, String text) {
         super(1);
         this.type = error;
         this.title = text;
+    }
+
+    public void sortPublic_log() {
+        Collections.sort(public_log, new CustomComparator());
+    }
+
+    private class CustomComparator implements Comparator<PublicLogEntry> {
+        @Override
+        public int compare(PublicLogEntry o1, PublicLogEntry o2) {
+            return -o1.getDate().compareTo(o2.getDate());
+        }
     }
 
     static String germanDate(String d) {
@@ -125,11 +144,24 @@ public class ItopTicket extends CMDBObject implements Serializable {
     }
 
     public String getPublic_log() {
-        return public_log;
+        StringBuilder sb = new StringBuilder("");
+        for (PublicLogEntry s:public_log) {
+            if (!s.message.isEmpty()) {
+                sb.append(s.date);
+                sb.append(" - ");
+                sb.append(s.user_login);
+                sb.append("\r\n\r\n");
+                sb.append(s.message);
+                sb.append("\r\n");
+                sb.append("---------------------------------------------------------------------\r\n");
+            }
+        }
+        return sb.toString();
     }
 
-    public void setPublic_log(String public_log) {
-        this.public_log = public_log;
+    public void setPublic_log0(String s) {
+        public_log.clear();
+        public_log.add(new PublicLogEntry(s));
     }
 
     public String getStatus() {

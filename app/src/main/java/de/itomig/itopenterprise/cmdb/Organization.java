@@ -17,13 +17,15 @@
 
 package de.itomig.itopenterprise.cmdb;
 
-public class Organization {
-    private int id;
+import java.io.Serializable;
+
+public class Organization  extends CMDBObject implements Serializable {
+
+    private static final long serialVersionUID = -5998999779602343501L;
     private String name;
 
     public Organization(int id, String name) {
-        super();
-        this.id = id;
+        super(id);
         this.name = name;
     }
 

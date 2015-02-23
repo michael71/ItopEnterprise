@@ -24,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import static de.itomig.itopenterprise.ItopConfig.TAG;
+import static de.itomig.itopenterprise.ItopConfig.debug;
 
 public class IncidentActivity extends de.itomig.itopenterprise.MainActivity {
 
@@ -32,12 +33,13 @@ public class IncidentActivity extends de.itomig.itopenterprise.MainActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String getIncidents = "SELECT Incident WHERE status!='closed' AND status!='resolved'";
-        try {
-            expression = URLEncoder.encode(getIncidents, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            Log.e(TAG, "IncidentActivity: " + e.toString());
-        }
+
+        if (debug) Log.i(TAG, "IncidentActivity - onCreate");
+
+        serverExpression[0] = "core/get";
+        serverExpression[1] = "Incident";
+        serverExpression[2] = "SELECT Incident WHERE status!='closed' AND status!='resolved'";
+        serverExpression[3] = "ref, title, priority, start_date, tto_escalation_deadline, caller_id, agent_id, status, last_update, description, public_log";
     }
 
 }

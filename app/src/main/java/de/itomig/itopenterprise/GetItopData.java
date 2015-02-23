@@ -148,9 +148,9 @@ public class GetItopData {
             } else if (name.equalsIgnoreCase("last_update")) {
                 ticket.setLast_update(getConcatNodeValues(property));
             } else if (name.equalsIgnoreCase("ticket_log")) { // itop 1.2
-                ticket.setPublic_log(getConcatNodeValues(property));
+                ticket.setPublic_log0(getConcatNodeValues(property));
             } else if (name.equalsIgnoreCase("public_log")) { // itop 2.0
-                ticket.setPublic_log(getConcatNodeValues(property));
+                ticket.setPublic_log0(getConcatNodeValues(property));
             }
         }
         return ticket;
