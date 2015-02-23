@@ -20,12 +20,12 @@ package de.itomig.itopenterprise;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentHashMap;
 
 import de.itomig.itopenterprise.cmdb.Organization;
 import de.itomig.itopenterprise.cmdb.Person;
@@ -51,15 +51,13 @@ public class PersonAndOrgsLookup {
             if ((System.currentTimeMillis() - personLookupTime) > 150 * MIN) {
                 reqRunningFlag = true;
                 RequestPersonsFromServerTask reqServer = new RequestPersonsFromServerTask();
-                String expr = "SELECT Person";
                 if (debug) Log.d(TAG, "PersonAndOrgsLookup, retrieving Persons from server");
-                reqServer.execute(expr);
+                reqServer.execute();
             } else if ((System.currentTimeMillis() - organizationLookupTime) > 630 * MIN) {
                 reqRunningFlag = true;
                 RequestOrgsFromServerTask reqServer = new RequestOrgsFromServerTask();
-                String expr = "SELECT Organization";
                 if (debug) Log.d(TAG, "PersonAndOrgsLookup, retrieving Organizations from server");
-                reqServer.execute(expr);
+                reqServer.execute();
             }
         } else {
             Log.e(TAG, "could not start PersonAndOrgsLookup");
@@ -67,7 +65,7 @@ public class PersonAndOrgsLookup {
     }
 
     class RequestPersonsFromServerTask extends
-            AsyncTask<String, Void, String> {
+            AsyncTask<Void, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -75,10 +73,10 @@ public class PersonAndOrgsLookup {
         }
 
         @Override
-        protected String doInBackground(String... expr) {
+        protected String doInBackground(Void... params) {
             String resp="";
             try {
-                resp = GetItopJSON.postJsonToItopServer("core/get", "Person", expr[0],
+                resp = GetItopJSON.postJsonToItopServer("core/get", "Person", "SELECT Person",
                         "name, friendlyname, phone, org_id");
 
             } catch (Exception e) {
@@ -92,6 +90,9 @@ public class PersonAndOrgsLookup {
         protected synchronized void onPostExecute(String resp) {
 
             reqRunningFlag = false;
+
+            if (!ItopUtils.getItopError(resp).isEmpty()) return;
+
             ArrayList<Person> persons;
             Type type = new TypeToken<Person>() {
             }.getType();
@@ -99,11 +100,11 @@ public class PersonAndOrgsLookup {
             if (debug)
                 Log.i(TAG,
                         "onPostExecute - RefreshPersonsFromServer");
-
             if (persons == null) {
                 Log.e(TAG, "empty response when req. Person List. - RefreshPersonsFromServer");
                 return;
             }
+
 
             for (Person p : persons) {
                 personLookup.put(p.getId(), p);
@@ -128,8 +129,8 @@ public class PersonAndOrgsLookup {
         protected String doInBackground(String... expr) {
             String resp="";
             try {
-                resp = GetItopJSON.postJsonToItopServer("core/get", "Person", expr[0],
-                                "name, friendlyname, phone, org_id");
+                resp = GetItopJSON.postJsonToItopServer("core/get", "Organization",
+                        "SELECT Organization", "name, id");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -139,10 +140,11 @@ public class PersonAndOrgsLookup {
         @SuppressLint("UseSparseArrays")  // sparse arrays cannot be iterated.
         @Override
         protected void onPostExecute(String resp) {
-            ArrayList<Organization> organizations = new ArrayList<Organization>();
-            reqRunningFlag = false;
 
-            ArrayList<Organization> persons;
+            reqRunningFlag = false;
+            if (!ItopUtils.getItopError(resp).isEmpty()) return;
+
+            ArrayList<Organization> organizations;
             Type type = new TypeToken<Organization>() {
             }.getType();
             organizations = GetItopJSON.getArrayFromJson(resp, type, null);

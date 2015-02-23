@@ -17,9 +17,13 @@
 
 package de.itomig.itopenterprise;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import de.itomig.itopenterprise.cmdb.ItopTicket;
+
+import static de.itomig.itopenterprise.ItopConfig.TAG;
 
 public class ItopUtils {
 
@@ -76,4 +80,39 @@ public class ItopUtils {
 
     }
 
+    /**
+     * utility method to check the JSON response from iTop server for returning an error
+     *
+     * @param resp
+     * @return error message (isEmpty() => no error)
+     */
+    static public String getItopError(String resp) {
+        if (resp == null) {
+            Log.e(TAG, "server response = null.");
+            return "server response = null";
+        }
+
+        // check for ERROR in resp String
+        if ((resp.length() >= 12)
+                && (resp.substring(0, 12).equals("SERVER_ERROR"))) {
+            Log.e(TAG, resp);
+            return resp;
+
+        }
+
+        // check for error message in JSON string
+        String message = GetItopJSON.getMessage(resp);
+        if (message.length() > 0) {
+            Log.e(TAG, "server error =" + message);
+
+            if (message.toLowerCase().contains("not a valid class")) {
+                return "Task Extension not installed on iTop Server, disable Tasks!";
+            } else {
+                return "server error =" + message;
+            }
+
+
+        }
+        return "";
+    }
 }

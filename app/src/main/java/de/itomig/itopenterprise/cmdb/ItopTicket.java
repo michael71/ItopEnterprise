@@ -43,7 +43,7 @@ import static de.itomig.itopenterprise.ItopConfig.debug;
 public class ItopTicket extends CMDBObject implements Serializable {
     // Serializable is needed to "hook it up" on an intent with
     private static final long serialVersionUID = -5998434779602343501L;
-    private String type;
+    private String type;  // can be UserRequest or Incident
     private String ref;
     private String title;
     private int priority;
@@ -56,7 +56,6 @@ public class ItopTicket extends CMDBObject implements Serializable {
     private int caller_id;
     private int agent_id;
 
-
     private String start_date;    // im ITOP (SQL Format gespeichert, bei der Ausgabe umgewandelt)
     private String tto_escalation_deadline = "";
     private String status = "";
@@ -64,7 +63,6 @@ public class ItopTicket extends CMDBObject implements Serializable {
 
     private String description;
     private ArrayList<PublicLogEntry> public_log = new ArrayList<>();
-
 
 
     public ItopTicket(int id) {
@@ -105,12 +103,6 @@ public class ItopTicket extends CMDBObject implements Serializable {
         super(1);
         this.type = t;
         this.public_log.add(new PublicLogEntry());
-    }
-
-    public ItopTicket(String error, String text) {
-        super(1);
-        this.type = error;
-        this.title = text;
     }
 
     public void sortPublic_log() {

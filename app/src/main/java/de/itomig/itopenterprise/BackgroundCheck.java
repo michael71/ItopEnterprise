@@ -91,6 +91,14 @@ public class BackgroundCheck extends Service {
         String text = getString(R.string.new_prio1_incident);
         ticketNotification = new Notification(icon, text, System.currentTimeMillis());
 
+        /* use when min-sdk >=11:
+            ticketNotification = new Notification.Builder(getApplicationContext())
+                .setContentText(text)
+                .setSmallIcon(icon)
+                .setWhen(System.currentTimeMillis())
+                .build();
+                */
+
     }
 
     @Override
@@ -252,30 +260,9 @@ public class BackgroundCheck extends Service {
             reqRunningFlag = false;
             if (debug) Log.d(TAG, "json results for CI-Class=UserR/Incident");
 
-            if (resp == null) {
-                Log.e(TAG, "server response = null.");
-                return;
-            }
+            if (!ItopUtils.getItopError(resp).isEmpty()) return;
 
-            // check for ERROR in resp String
-            if ((resp.length() >= 5)
-                    && (resp.substring(0, 5).toLowerCase().equals("error"))) {
-                Log.e(TAG, "server error =" + resp);
-                return;
-
-            }
-
-            // check for error message in JSON string
-            String message = GetItopJSON.getMessage(resp);
-            if (message.length() > 0) {
-                Log.e(TAG, "server error =" + message);
-            }
-
-            if (debug)
-                Log.d(TAG, "json response - postexecute" + resp);
             Type type;
-
-
             type = new TypeToken<ItopTicket>() {
             }.getType();
             bgtickets = GetItopJSON.getArrayFromJson(resp, type, null);
@@ -283,7 +270,6 @@ public class BackgroundCheck extends Service {
             for (ItopTicket t : bgtickets) {
                 t.setType(ct[1]);
             }
-
 
             if (debug) {
                 Log.i(TAG, "BG: " + bgtickets.size() + " tickets received");
