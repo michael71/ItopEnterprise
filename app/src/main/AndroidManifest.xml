@@ -3,7 +3,7 @@
     package="de.itomig.itopenterprise"
     android:installLocation="auto"
     android:versionCode="43"
-    android:versionName="2.10">
+    android:versionName="2.10a">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />

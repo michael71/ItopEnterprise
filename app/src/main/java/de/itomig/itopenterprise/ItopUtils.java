@@ -88,8 +88,8 @@ public class ItopUtils {
      */
     static public String getItopError(String resp) {
         if (resp == null) {
-            Log.e(TAG, "server response = null.");
-            return "server response = null";
+            Log.e(TAG, "SERVER_ERROR: response = null.");
+            return "SERVER_ERROR: response = null";
         }
 
         // check for ERROR in resp String
@@ -100,19 +100,12 @@ public class ItopUtils {
 
         }
 
-        // check for error message in JSON string
+        // check for iTop appplication error message in JSON string
         String message = GetItopJSON.getMessage(resp);
         if (message.length() > 0) {
-            Log.e(TAG, "server error =" + message);
-
-            if (message.toLowerCase().contains("not a valid class")) {
-                return "Task Extension not installed on iTop Server, disable Tasks!";
-            } else {
-                return "server error =" + message;
-            }
-
-
-        }
+            Log.e(TAG, "SERVER_ERROR: " +message);
+            return "SERVER_ERROR: " + message;
+          }
         return "";
     }
 }
