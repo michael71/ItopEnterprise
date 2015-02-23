@@ -27,7 +27,9 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
 
-import java.net.URLEncoder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import de.itomig.itopenterprise.cmdb.ItopTicket;
@@ -129,7 +131,7 @@ public class BackgroundCheck extends Service {
             // if more then one new ticket, mark here with n*
             if (bgtickets.size() > 1) {
                 note.append(bgtickets.size());
-                note.append( "* ");
+                note.append("* ");
             }
 
             // assemble strings for info (toast on UI) and note (notification)
@@ -189,7 +191,7 @@ public class BackgroundCheck extends Service {
                 String expr = oqlExpr0 + oqlExpr1 + oqlType[mNotifyCondition] + oqlExpr2 + (BACKGROUND_INTERVAL_MIN + 1) + oqlExpr3;
                 //String expr=oqlExpr1;
                 if (debug) Log.i(TAG, "BG: expr=" + expr);
-                reqServer.execute(URLEncoder.encode(expr, "UTF-8"));
+                reqServer.execute(expr);
             }
         } catch (Exception e) {
             Log.e(TAG, "BG: ERROR " + e.toString());
@@ -201,7 +203,7 @@ public class BackgroundCheck extends Service {
         try {
             Thread.sleep(100);  // wait a few milliseconds before starting the other server request
         } catch (InterruptedException e) {
-            Log.e(TAG,"could not sleep");
+            Log.e(TAG, "could not sleep");
         }
     }
 
@@ -220,7 +222,9 @@ public class BackgroundCheck extends Service {
     /*
      *  the http request is done in the background as an AsyncTask
      */
-    protected class RequestTicketsFromServerTask extends AsyncTask<String, Void, ArrayList<ItopTicket>> {
+    protected class RequestTicketsFromServerTask extends AsyncTask<String, Void, String> {
+
+        String[] ct;
 
         @Override
         protected void onPreExecute() {
@@ -228,21 +232,58 @@ public class BackgroundCheck extends Service {
         }
 
         @Override
-        protected ArrayList<ItopTicket> doInBackground(String... expr) {
-            ArrayList<ItopTicket> reqTickets = new ArrayList<ItopTicket>();
+        protected String doInBackground(String... expr) {
+            String resp = "";
+            // determine CI class from SELECT statement
+            ct = expr[0].split(" ");
+
             try {
-                reqTickets = de.itomig.itopenterprise.GetItopData.getTicketsFromItopServer(expr[0]);
+                resp = GetItopJSON.postJsonToItopServer("core/get", ct[1], expr[0],
+                        "ref, title, priority, agent_id, status, last_update");
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            return reqTickets;
+            return resp;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<ItopTicket> resTickets) {
-            // TODO add error checking....
-            bgtickets = new ArrayList<ItopTicket>(resTickets);
+        protected void onPostExecute(String resp) {
+            reqRunningFlag = false;
+            if (debug) Log.d(TAG, "json results for CI-Class=UserR/Incident");
+
+            if (resp == null) {
+                Log.e(TAG, "server response = null.");
+                return;
+            }
+
+            // check for ERROR in resp String
+            if ((resp.length() >= 5)
+                    && (resp.substring(0, 5).toLowerCase().equals("error"))) {
+                Log.e(TAG, "server error =" + resp);
+                return;
+
+            }
+
+            // check for error message in JSON string
+            String message = GetItopJSON.getMessage(resp);
+            if (message.length() > 0) {
+                Log.e(TAG, "server error =" + message);
+            }
+
+            if (debug)
+                Log.d(TAG, "json response - postexecute" + resp);
+            Type type;
+
+
+            type = new TypeToken<ItopTicket>() {
+            }.getType();
+            bgtickets = GetItopJSON.getArrayFromJson(resp, type, null);
+
+            for (ItopTicket t : bgtickets) {
+                t.setType(ct[1]);
+            }
+
 
             if (debug) {
                 Log.i(TAG, "BG: " + bgtickets.size() + " tickets received");

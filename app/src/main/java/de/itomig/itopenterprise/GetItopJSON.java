@@ -157,12 +157,25 @@ public class GetItopJSON {
         return sb.toString();
     }
 
+    /**
+     * convert a json string to an ArrayList of a CMDBObject Type
+     *
+     * @param json string
+     * @param T Type of data
+     * @param context application context, call with =null when calling from background task
+     * @param <T> Type of data
+     * @return ArrayList<T> with the results, returns empty list when error or no data.
+     */
     public static <T> ArrayList<T> getArrayFromJson(String json, Type T, Context context) {
         ArrayList<T> list = new ArrayList<T>();
 
         // check for server Error
         if ((json.length() >= 12) && json.substring(0,12).contains("SERVER_ERROR")) {
-            Toast.makeText(context, json, Toast.LENGTH_LONG).show();
+            if (context != null) {
+                Toast.makeText(context, json, Toast.LENGTH_LONG).show();
+            } else {
+                Log.e(TAG,json);
+            }
             return list;
         }
         String code = "100"; // json error code, "0" => everything is o.k.

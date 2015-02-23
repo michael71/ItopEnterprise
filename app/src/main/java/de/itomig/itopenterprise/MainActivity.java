@@ -280,55 +280,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    protected class RequestTicketsFromServerTask extends
-            AsyncTask<String, Void, ArrayList<ItopTicket>> {
-
-        @Override
-        protected void onPreExecute() {
-            emptyView.setText(getString(R.string.loading));
-        }
-
-        @Override
-        protected ArrayList<ItopTicket> doInBackground(String... expr) {
-
-            ArrayList<ItopTicket> reqTickets = new ArrayList<ItopTicket>();
-            try {
-                reqTickets = GetItopData.getTicketsFromItopServer(expr[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            return reqTickets;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<ItopTicket> resTickets) {
-            ticketRequestRunningFlag = false;
-            getParent().setProgressBarIndeterminateVisibility(false);
-            getParent().setProgressBarVisibility(false);
-
-            if (resTickets == null) {
-                Log.e(TAG,
-                        "RequestTicketsFromServerTask - postexecute: received null response");
-                return;
-            }
-            // TODO add error checking....
-            tickets = new ArrayList<ItopTicket>(resTickets);
-
-            // sort by priority
-            Collections.sort(tickets, comparator);
-
-            itemListView.setAdapter(new de.itomig.itopenterprise.TicketAdapter(MainActivity.this, tickets));
-            ((BaseAdapter) itemListView.getAdapter()).notifyDataSetChanged();
-
-            if (debug)
-                Log.i(TAG, "RequestTicketsFromServerTask - postexecute");
-            emptyView.setText(getString(R.string.no_tickets));
-        }
-
-
-    }
-
     /**
      * AsyncTask for requesting some JSON data from the itop server
      *

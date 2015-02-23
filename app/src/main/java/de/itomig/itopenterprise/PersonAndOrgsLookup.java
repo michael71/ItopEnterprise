@@ -21,6 +21,9 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -48,13 +51,13 @@ public class PersonAndOrgsLookup {
             if ((System.currentTimeMillis() - personLookupTime) > 150 * MIN) {
                 reqRunningFlag = true;
                 RequestPersonsFromServerTask reqServer = new RequestPersonsFromServerTask();
-                String expr = "SELECT+Person";
+                String expr = "SELECT Person";
                 if (debug) Log.d(TAG, "PersonAndOrgsLookup, retrieving Persons from server");
                 reqServer.execute(expr);
             } else if ((System.currentTimeMillis() - organizationLookupTime) > 630 * MIN) {
                 reqRunningFlag = true;
                 RequestOrgsFromServerTask reqServer = new RequestOrgsFromServerTask();
-                String expr = "SELECT+Organization";
+                String expr = "SELECT Organization";
                 if (debug) Log.d(TAG, "PersonAndOrgsLookup, retrieving Organizations from server");
                 reqServer.execute(expr);
             }
@@ -64,7 +67,7 @@ public class PersonAndOrgsLookup {
     }
 
     class RequestPersonsFromServerTask extends
-            AsyncTask<String, Void, ArrayList<Person>> {
+            AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -72,45 +75,49 @@ public class PersonAndOrgsLookup {
         }
 
         @Override
-        protected ArrayList<Person> doInBackground(String... expr) {
-            ArrayList<Person> persons = new ArrayList<Person>();
+        protected String doInBackground(String... expr) {
+            String resp="";
             try {
-                persons = GetItopData.getPersonsFromItopServer(expr[0]);
+                resp = GetItopJSON.postJsonToItopServer("core/get", "Person", expr[0],
+                        "name, friendlyname, phone, org_id");
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return persons;
+            return resp;
         }
 
         @SuppressLint("UseSparseArrays") // sparse arrays cannot be iterated.
         @Override
-        protected synchronized void onPostExecute(ArrayList<Person> persons) {
+        protected synchronized void onPostExecute(String resp) {
 
             reqRunningFlag = false;
+            ArrayList<Person> persons;
+            Type type = new TypeToken<Person>() {
+            }.getType();
+            persons = GetItopJSON.getArrayFromJson(resp, type, null);
             if (debug)
                 Log.i(TAG,
-                        "onPostExecute - PersonAndOrgsLookup - Persons - reqRunningFlag cleared");
+                        "onPostExecute - RefreshPersonsFromServer");
 
             if (persons == null) {
-                Log.e(TAG, "empty response when req. Person List.");
+                Log.e(TAG, "empty response when req. Person List. - RefreshPersonsFromServer");
                 return;
             }
 
-
-            ConcurrentHashMap<Integer, Person> plNew = new ConcurrentHashMap<Integer, Person>();
             for (Person p : persons) {
-                plNew.put(p.getId(), p);
+                personLookup.put(p.getId(), p);
                 if (debug)
                     Log.d(TAG, "PersonAndOrgsLookup - setting person id=" + p.getId() + " to name=" + p.getFriendlyname() + "org_id=" + p.getOrg_id());
             }
-            personLookup = plNew;
+
             personLookupTime = System.currentTimeMillis();
             Cache.cachePersons(itopAppContext);
         }
     }
 
     class RequestOrgsFromServerTask extends
-            AsyncTask<String, Void, ArrayList<Organization>> {
+            AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
@@ -118,23 +125,28 @@ public class PersonAndOrgsLookup {
         }
 
         @Override
-        protected ArrayList<Organization> doInBackground(String... expr) {
-            ArrayList<Organization> organizations = new ArrayList<Organization>();
+        protected String doInBackground(String... expr) {
+            String resp="";
             try {
-                organizations = GetItopData
-                        .getOrganizationsFromItopServer(expr[0]);
+                resp = GetItopJSON.postJsonToItopServer("core/get", "Person", expr[0],
+                                "name, friendlyname, phone, org_id");
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return organizations;
+            return resp;
         }
 
         @SuppressLint("UseSparseArrays")  // sparse arrays cannot be iterated.
         @Override
-        protected void onPostExecute(ArrayList<Organization> organizations) {
-
+        protected void onPostExecute(String resp) {
+            ArrayList<Organization> organizations = new ArrayList<Organization>();
             reqRunningFlag = false;
-            organizationLookupTime = System.currentTimeMillis();
+
+            ArrayList<Organization> persons;
+            Type type = new TypeToken<Organization>() {
+            }.getType();
+            organizations = GetItopJSON.getArrayFromJson(resp, type, null);
+
             if (debug)
                 Log.i(TAG,
                         "onPostExecute - PersonAndOrgsLookup - Organizations - reqRunningFlag cleared");
@@ -144,12 +156,10 @@ public class PersonAndOrgsLookup {
                 return;
             }
 
-            ConcurrentHashMap<Integer, String> orgNew = new ConcurrentHashMap<Integer, String>();
             for (Organization o : organizations) {
-                orgNew.put(o.getId(), o.getName());
-                //if (debug) Log.d(TAG,"PersonAndOrgsLookup - setting org id="+o.getId()+" to name="+o.getName());
+                organizationLookup.put(o.getId(), o.getName());
+                if (debug) Log.d(TAG,"PersonAndOrgsLookup - setting org id="+o.getId()+" to name="+o.getName());
             }
-            organizationLookup = orgNew;  // replace old lookup table
             organizationLookupTime = System.currentTimeMillis();
             Cache.cacheOrgs(itopAppContext);
         }
