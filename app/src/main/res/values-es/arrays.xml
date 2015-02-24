@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<resources>
+    <string-array name="search_category">
+        <item>EC Funcional</item>
+        <item>Persona</item>
+    </string-array>
+    <string-array name="notification_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="notification_entries">
+        <item>nunca</item>
+        <item>para nuevos incidentes, Prio1</item>
+        <item>para actualizaciones y nuevos incidentes, Prio1</item>
+    </string-array>
+    <string-array name="priority">
+        <item>crítica</item>
+        <item>alta</item>
+        <item>media</item>
+        <item>baja</item>
+    </string-array>
+    <string-array name="status">
+        <item>nuevo</item>
+        <item>activo</item>
+        <item>terminado</item>
+        <item>inactivo</item>
+        <item>borrado</item>
+    </string-array>
+</resources>
