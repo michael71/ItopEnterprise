@@ -63,4 +63,8 @@
     <string name="whatisitop">iTop es una aplicación de CMDB de código abierto basada en web con módulos para los diferentes Procesos de ITIL. Incluye Tickets, un Portal Autogestionado e interfaces con sistema de terceras partes. Más información: www.itomig.de/itop y www.combodo.com .</string>
     <string name="about_app_title">ITSM &amp; CMDB para Android</string>
     <string name="itopstat">iTop fue descargado más de 75 000 veces.</string>
+    <string name="sort_by_prio">Ordenar por Prioridad?</string>
+    <string name="sort_prio_off">No, ordenar por referencia de entradas.</string>
+    <string name="sort_prio_on">Si, ordenar por Prioridad.</string>
+    <string name="gui">User Interface</string>
 </resources>
